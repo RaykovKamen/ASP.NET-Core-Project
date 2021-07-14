@@ -14,21 +14,20 @@ namespace Project.Models.Planets
 
         [Required]
         [Display(Name = "Orbital Distance")]
-        public int? OrbitalDistance { get; init; }
+        public double? OrbitalDistance { get; init; }
 
         [Required]
         [Display(Name = "Orbital Period")]
-        public int? OrbitalPeriod { get; init; }
+        public double? OrbitalPeriod { get; init; }
 
         [Required]
         public int? Radius { get; init; }
 
         [Required]
         [Display(Name = "Atmospheric Pressure")]
-        public int? AtmosphericPressure { get; init; }
+        public double? AtmosphericPressure { get; init; }
 
-        [Required]
-        [Display(Name = "Surface Temperature")]
+        [Display(Name = "Surface Temperature if there is a surface")]
         public int? SurfaceTemperature { get; init; }
 
         [Required]

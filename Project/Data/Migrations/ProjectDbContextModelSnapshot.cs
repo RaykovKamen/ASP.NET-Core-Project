@@ -231,8 +231,8 @@ namespace Project.Migrations
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
 
-                    b.Property<int>("AtmosphericPressure")
-                        .HasColumnType("int");
+                    b.Property<double>("AtmosphericPressure")
+                        .HasColumnType("float");
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
@@ -243,11 +243,11 @@ namespace Project.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int>("OrbitalDistance")
-                        .HasColumnType("int");
+                    b.Property<double>("OrbitalDistance")
+                        .HasColumnType("float");
 
-                    b.Property<int>("OrbitalPeriod")
-                        .HasColumnType("int");
+                    b.Property<double>("OrbitalPeriod")
+                        .HasColumnType("float");
 
                     b.Property<int>("PlanetarySystemId")
                         .HasColumnType("int");
@@ -255,7 +255,7 @@ namespace Project.Migrations
                     b.Property<int>("Radius")
                         .HasColumnType("int");
 
-                    b.Property<int>("SurfaceTemperature")
+                    b.Property<int?>("SurfaceTemperature")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -273,7 +273,9 @@ namespace Project.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 

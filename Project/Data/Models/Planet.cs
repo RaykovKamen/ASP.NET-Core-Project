@@ -12,19 +12,18 @@ namespace Project.Data.Models
         public string Name { get; init; }
 
         [Required]
-        public int OrbitalDistance { get; set; }
+        public double OrbitalDistance { get; set; }
 
         [Required]
-        public int OrbitalPeriod { get; set; }
+        public double OrbitalPeriod { get; set; }
 
         [Required]
         public int Radius { get; set; }
 
         [Required]
-        public int AtmosphericPressure { get; set; }
+        public double AtmosphericPressure { get; set; }
 
-        [Required]
-        public int SurfaceTemperature { get; set; }
+        public int? SurfaceTemperature { get; set; }
 
         [Required]
         [MaxLength(AnalysisMaxLength)]
