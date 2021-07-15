@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Project.Data;
 using Project.Data.Models;
-using Project.Models.Home;
 using Project.Models.Planets;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,15 +14,21 @@ namespace Project.Controllers
         public PlanetsController(ProjectDbContext data)
             => this.data = data;
 
-        public IActionResult Add() => View(new AddPlanetFormModel
+        public IActionResult All([FromQuery] AllPlanetsQueryModel query)
         {
-            PlanetarySystems = this.GetPlanetarySystems()
-        });
+            var planetsQuery = this.data.Planets.AsQueryable();
 
-        public IActionResult All()
-        {
-            var planets = this.data
-                .Planets
+            if (!string.IsNullOrWhiteSpace(query.SearchTerm))
+            {
+                planetsQuery = planetsQuery.Where(p =>
+                p.Name.ToLower().Contains(query.SearchTerm.ToLower()));
+            }
+
+            var totalPlanets = planetsQuery.Count();
+
+            var planets = planetsQuery
+                .Skip((query.CurrentPage - 1) * AllPlanetsQueryModel.PlanetsPerPage)
+                .Take(AllPlanetsQueryModel.PlanetsPerPage)
                 .OrderByDescending(p => p.Id)
                 .Select(p => new PlanetListingViewModel
                 {
@@ -40,8 +45,16 @@ namespace Project.Controllers
                 })
                 .ToList();
 
-            return View(planets);
+            query.TotalPlanets = totalPlanets;
+            query.Planets = planets;
+
+            return View(query);
         }
+
+        public IActionResult Add() => View(new AddPlanetFormModel
+        {
+            PlanetarySystems = this.GetPlanetarySystems()
+        });
 
         [HttpPost]
         public IActionResult Add(AddPlanetFormModel planet)
@@ -59,7 +72,7 @@ namespace Project.Controllers
             }
 
             var planetData = new Planet
-            {             
+            {
                 Name = planet.Name,
                 OrbitalDistance = (double)planet.OrbitalDistance,
                 OrbitalPeriod = (double)planet.OrbitalPeriod,

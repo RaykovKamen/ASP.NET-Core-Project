@@ -26,12 +26,6 @@ namespace Project.Controllers
                 {
                     Id = p.Id,
                     Name = p.Name,
-                    OrbitalDistance = (double)p.OrbitalDistance,
-                    OrbitalPeriod = (double)p.OrbitalPeriod,
-                    Radius = p.Radius,
-                    AtmosphericPressure = (double)p.AtmosphericPressure,
-                    SurfaceTemperature = (int)p.SurfaceTemperature,
-                    Analysis = p.Analysis,
                     ImageUrl = p.ImageUrl,
                 })
                 .Take(3)
