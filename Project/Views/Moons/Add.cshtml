@@ -1,0 +1,64 @@
+﻿@model AddMoonFormModel
+
+@{
+    ViewData["Title"] = "Add Moon";
+}
+
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg8 offset-xl-3 col-xl-6">
+        <h2 class="heading-margin text-center">Add Moon</h2>
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control" placeholder="Luna">
+                <span asp-validation-for="Name" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OrbitalDistance"></label>
+                <input asp-for="OrbitalDistance" class="form-control" placeholder="384.403 km">
+                <span asp-validation-for="OrbitalDistance" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OrbitalPeriod"></label>
+                <input asp-for="OrbitalPeriod" class="form-control" placeholder="27.3 Earth Days">
+                <span asp-validation-for="OrbitalPeriod" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Radius"></label>
+                <input asp-for="Radius" class="form-control" placeholder="1737 km">
+                <span asp-validation-for="Radius" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AtmosphericPressure"></label>
+                <input asp-for="AtmosphericPressure" class="form-control" placeholder="0.1 atmospheres">
+                <span asp-validation-for="AtmosphericPressure" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SurfaceTemperature"></label>
+                <input asp-for="SurfaceTemperature" class="form-control" placeholder="-53C">
+                <span asp-validation-for="SurfaceTemperature" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Analysis"></label>
+                <textarea asp-for="Analysis" rows="4" class="form-control" placeholder="Luna is the moon of Earth"></textarea>
+                <span asp-validation-for="Analysis" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageUrl"></label>
+                <textarea asp-for="ImageUrl" class="form-control" placeholder="Moon picture"></textarea>
+                <span asp-validation-for="ImageUrl" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PlanetId"></label>
+                <select asp-for="PlanetId" class="form-control">
+                    @foreach (var Planet in Model.Planets)
+                    {
+                        <option value="@Planet.Id">@Planet.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="PlanetId" class="small text-danger"></span>
+            </div>
+            <input class="btn btn-primary" type="submit" value="Save" />
+        </form>
+    </div>
+</div>

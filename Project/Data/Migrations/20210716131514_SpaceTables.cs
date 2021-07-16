@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Project.Migrations
 {
-    public partial class SpaceTable : Migration
+    public partial class SpaceTables : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -193,7 +193,7 @@ namespace Project.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Moon",
+                name: "Moons",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -210,9 +210,9 @@ namespace Project.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Moon", x => x.Id);
+                    table.PrimaryKey("PK_Moons", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Moon_Planets_PlanetId",
+                        name: "FK_Moons_Planets_PlanetId",
                         column: x => x.PlanetId,
                         principalTable: "Planets",
                         principalColumn: "Id",
@@ -220,7 +220,7 @@ namespace Project.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Mineral",
+                name: "Minerals",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -246,15 +246,15 @@ namespace Project.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Mineral", x => x.Id);
+                    table.PrimaryKey("PK_Minerals", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Mineral_Moon_MoonId",
+                        name: "FK_Minerals_Moons_MoonId",
                         column: x => x.MoonId,
-                        principalTable: "Moon",
+                        principalTable: "Moons",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Mineral_Planets_PlanetId",
+                        name: "FK_Minerals_Planets_PlanetId",
                         column: x => x.PlanetId,
                         principalTable: "Planets",
                         principalColumn: "Id",
@@ -262,7 +262,7 @@ namespace Project.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Satellite",
+                name: "Satellites",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -273,15 +273,15 @@ namespace Project.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Satellite", x => x.Id);
+                    table.PrimaryKey("PK_Satellites", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Satellite_Moon_MoonId",
+                        name: "FK_Satellites_Moons_MoonId",
                         column: x => x.MoonId,
-                        principalTable: "Moon",
+                        principalTable: "Moons",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Satellite_Planets_PlanetId",
+                        name: "FK_Satellites_Planets_PlanetId",
                         column: x => x.PlanetId,
                         principalTable: "Planets",
                         principalColumn: "Id",
@@ -328,18 +328,18 @@ namespace Project.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Mineral_MoonId",
-                table: "Mineral",
+                name: "IX_Minerals_MoonId",
+                table: "Minerals",
                 column: "MoonId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Mineral_PlanetId",
-                table: "Mineral",
+                name: "IX_Minerals_PlanetId",
+                table: "Minerals",
                 column: "PlanetId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Moon_PlanetId",
-                table: "Moon",
+                name: "IX_Moons_PlanetId",
+                table: "Moons",
                 column: "PlanetId");
 
             migrationBuilder.CreateIndex(
@@ -348,13 +348,13 @@ namespace Project.Migrations
                 column: "PlanetarySystemId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Satellite_MoonId",
-                table: "Satellite",
+                name: "IX_Satellites_MoonId",
+                table: "Satellites",
                 column: "MoonId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Satellite_PlanetId",
-                table: "Satellite",
+                name: "IX_Satellites_PlanetId",
+                table: "Satellites",
                 column: "PlanetId");
         }
 
@@ -376,10 +376,10 @@ namespace Project.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Mineral");
+                name: "Minerals");
 
             migrationBuilder.DropTable(
-                name: "Satellite");
+                name: "Satellites");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -388,7 +388,7 @@ namespace Project.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Moon");
+                name: "Moons");
 
             migrationBuilder.DropTable(
                 name: "Planets");

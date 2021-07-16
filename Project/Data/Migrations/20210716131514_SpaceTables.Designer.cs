@@ -10,8 +10,8 @@ using Project.Data;
 namespace Project.Migrations
 {
     [DbContext(typeof(ProjectDbContext))]
-    [Migration("20210716082320_SpaceTable")]
-    partial class SpaceTable
+    [Migration("20210716131514_SpaceTables")]
+    partial class SpaceTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -288,7 +288,7 @@ namespace Project.Migrations
 
                     b.HasIndex("PlanetId");
 
-                    b.ToTable("Mineral");
+                    b.ToTable("Minerals");
                 });
 
             modelBuilder.Entity("Project.Data.Models.Moon", b =>
@@ -334,7 +334,7 @@ namespace Project.Migrations
 
                     b.HasIndex("PlanetId");
 
-                    b.ToTable("Moon");
+                    b.ToTable("Moons");
                 });
 
             modelBuilder.Entity("Project.Data.Models.Planet", b =>
@@ -424,7 +424,7 @@ namespace Project.Migrations
 
                     b.HasIndex("PlanetId");
 
-                    b.ToTable("Satellite");
+                    b.ToTable("Satellites");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -286,7 +286,7 @@ namespace Project.Migrations
 
                     b.HasIndex("PlanetId");
 
-                    b.ToTable("Mineral");
+                    b.ToTable("Minerals");
                 });
 
             modelBuilder.Entity("Project.Data.Models.Moon", b =>
@@ -332,7 +332,7 @@ namespace Project.Migrations
 
                     b.HasIndex("PlanetId");
 
-                    b.ToTable("Moon");
+                    b.ToTable("Moons");
                 });
 
             modelBuilder.Entity("Project.Data.Models.Planet", b =>
@@ -422,7 +422,7 @@ namespace Project.Migrations
 
                     b.HasIndex("PlanetId");
 
-                    b.ToTable("Satellite");
+                    b.ToTable("Satellites");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

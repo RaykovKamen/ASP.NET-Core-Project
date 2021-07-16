@@ -16,10 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\Moons\" />
     <Folder Include="Models\Minerals\" />
     <Folder Include="Models\Satellites\" />
-    <Folder Include="Views\Moons\" />
     <Folder Include="Views\Minerals\" />
     <Folder Include="Views\Satellites\" />
   </ItemGroup>

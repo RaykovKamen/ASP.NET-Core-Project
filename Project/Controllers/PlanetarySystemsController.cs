@@ -23,7 +23,9 @@ namespace Project.Controllers
         {
             if (this.data.PlanetarySystems.Any(p => p.Name == planetarySystem.Name))
             {
-                this.ModelState.AddModelError(nameof(planetarySystem.Name), "Planetary System exist.");
+                this.ModelState.AddModelError(nameof(planetarySystem.Name), "Planetary System already exist.");
+
+                return View(planetarySystem);
             }
 
             var planearySystemtData = new PlanetarySystem
