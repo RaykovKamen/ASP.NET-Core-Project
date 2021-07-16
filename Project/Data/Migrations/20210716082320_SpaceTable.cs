@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Project.Migrations
 {
-    public partial class PlanetarySystemsAndPlanetTables : Migration
+    public partial class SpaceTable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -192,6 +192,102 @@ namespace Project.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Moon",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    OrbitalDistance = table.Column<double>(type: "float", nullable: false),
+                    OrbitalPeriod = table.Column<double>(type: "float", nullable: false),
+                    Radius = table.Column<int>(type: "int", nullable: false),
+                    AtmosphericPressure = table.Column<double>(type: "float", nullable: false),
+                    SurfaceTemperature = table.Column<int>(type: "int", nullable: false),
+                    Analysis = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PlanetId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Moon", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Moon_Planets_PlanetId",
+                        column: x => x.PlanetId,
+                        principalTable: "Planets",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Mineral",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Aluminum = table.Column<int>(type: "int", nullable: false),
+                    Beryllium = table.Column<int>(type: "int", nullable: false),
+                    Cadmium = table.Column<int>(type: "int", nullable: false),
+                    Copper = table.Column<int>(type: "int", nullable: false),
+                    Fluorite = table.Column<int>(type: "int", nullable: false),
+                    Graphite = table.Column<int>(type: "int", nullable: false),
+                    Iridium = table.Column<int>(type: "int", nullable: false),
+                    Iron = table.Column<int>(type: "int", nullable: false),
+                    Lithium = table.Column<int>(type: "int", nullable: false),
+                    Magnesium = table.Column<int>(type: "int", nullable: false),
+                    Nickel = table.Column<int>(type: "int", nullable: false),
+                    Platinum = table.Column<int>(type: "int", nullable: false),
+                    Silicon = table.Column<int>(type: "int", nullable: false),
+                    Titanium = table.Column<int>(type: "int", nullable: false),
+                    Uranium = table.Column<int>(type: "int", nullable: false),
+                    Vanadium = table.Column<int>(type: "int", nullable: false),
+                    PlanetId = table.Column<int>(type: "int", nullable: false),
+                    MoonId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Mineral", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Mineral_Moon_MoonId",
+                        column: x => x.MoonId,
+                        principalTable: "Moon",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Mineral_Planets_PlanetId",
+                        column: x => x.PlanetId,
+                        principalTable: "Planets",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Satellite",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    PlanetId = table.Column<int>(type: "int", nullable: false),
+                    MoonId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Satellite", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Satellite_Moon_MoonId",
+                        column: x => x.MoonId,
+                        principalTable: "Moon",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Satellite_Planets_PlanetId",
+                        column: x => x.PlanetId,
+                        principalTable: "Planets",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -232,9 +328,34 @@ namespace Project.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Mineral_MoonId",
+                table: "Mineral",
+                column: "MoonId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Mineral_PlanetId",
+                table: "Mineral",
+                column: "PlanetId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Moon_PlanetId",
+                table: "Moon",
+                column: "PlanetId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Planets_PlanetarySystemId",
                 table: "Planets",
                 column: "PlanetarySystemId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Satellite_MoonId",
+                table: "Satellite",
+                column: "MoonId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Satellite_PlanetId",
+                table: "Satellite",
+                column: "PlanetId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -255,13 +376,22 @@ namespace Project.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Planets");
+                name: "Mineral");
+
+            migrationBuilder.DropTable(
+                name: "Satellite");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Moon");
+
+            migrationBuilder.DropTable(
+                name: "Planets");
 
             migrationBuilder.DropTable(
                 name: "PlanetarySystems");

@@ -219,6 +219,122 @@ namespace Project.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("Project.Data.Models.Mineral", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Aluminum")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Beryllium")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Cadmium")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Copper")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Fluorite")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Graphite")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Iridium")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Iron")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Lithium")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Magnesium")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MoonId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Nickel")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PlanetId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Platinum")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Silicon")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Titanium")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Uranium")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Vanadium")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MoonId");
+
+                    b.HasIndex("PlanetId");
+
+                    b.ToTable("Mineral");
+                });
+
+            modelBuilder.Entity("Project.Data.Models.Moon", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Analysis")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<double>("AtmosphericPressure")
+                        .HasColumnType("float");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<double>("OrbitalDistance")
+                        .HasColumnType("float");
+
+                    b.Property<double>("OrbitalPeriod")
+                        .HasColumnType("float");
+
+                    b.Property<int>("PlanetId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Radius")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SurfaceTemperature")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PlanetId");
+
+                    b.ToTable("Moon");
+                });
+
             modelBuilder.Entity("Project.Data.Models.Planet", b =>
                 {
                     b.Property<int>("Id")
@@ -282,6 +398,33 @@ namespace Project.Migrations
                     b.ToTable("PlanetarySystems");
                 });
 
+            modelBuilder.Entity("Project.Data.Models.Satellite", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("MoonId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("PlanetId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MoonId");
+
+                    b.HasIndex("PlanetId");
+
+                    b.ToTable("Satellite");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -333,6 +476,36 @@ namespace Project.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Project.Data.Models.Mineral", b =>
+                {
+                    b.HasOne("Project.Data.Models.Moon", "Moon")
+                        .WithMany("Mineral")
+                        .HasForeignKey("MoonId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Project.Data.Models.Planet", "Planet")
+                        .WithMany("Minerals")
+                        .HasForeignKey("PlanetId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Moon");
+
+                    b.Navigation("Planet");
+                });
+
+            modelBuilder.Entity("Project.Data.Models.Moon", b =>
+                {
+                    b.HasOne("Project.Data.Models.Planet", "Planet")
+                        .WithMany("Moons")
+                        .HasForeignKey("PlanetId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Planet");
+                });
+
             modelBuilder.Entity("Project.Data.Models.Planet", b =>
                 {
                     b.HasOne("Project.Data.Models.PlanetarySystem", "PlanetarySystem")
@@ -342,6 +515,41 @@ namespace Project.Migrations
                         .IsRequired();
 
                     b.Navigation("PlanetarySystem");
+                });
+
+            modelBuilder.Entity("Project.Data.Models.Satellite", b =>
+                {
+                    b.HasOne("Project.Data.Models.Moon", "Moon")
+                        .WithMany("Satellites")
+                        .HasForeignKey("MoonId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Project.Data.Models.Planet", "Planet")
+                        .WithMany("Satellites")
+                        .HasForeignKey("PlanetId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Moon");
+
+                    b.Navigation("Planet");
+                });
+
+            modelBuilder.Entity("Project.Data.Models.Moon", b =>
+                {
+                    b.Navigation("Mineral");
+
+                    b.Navigation("Satellites");
+                });
+
+            modelBuilder.Entity("Project.Data.Models.Planet", b =>
+                {
+                    b.Navigation("Minerals");
+
+                    b.Navigation("Moons");
+
+                    b.Navigation("Satellites");
                 });
 
             modelBuilder.Entity("Project.Data.Models.PlanetarySystem", b =>

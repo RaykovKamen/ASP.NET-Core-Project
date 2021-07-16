@@ -2,7 +2,6 @@
 using Project.Data;
 using Project.Models;
 using Project.Models.Home;
-using Project.Models.Planets;
 using System.Diagnostics;
 using System.Linq;
 
@@ -17,7 +16,7 @@ namespace Project.Controllers
 
         public IActionResult Index()
         {
-            var totalPlants = this.data.Planets.Count();
+            var totalPlanets = this.data.Planets.Count();
 
             var planets = this.data
                 .Planets
@@ -33,7 +32,7 @@ namespace Project.Controllers
 
             return View(new IndexViewModel
             {
-                TotalPlanets = totalPlants,
+                TotalPlanets = totalPlanets,
                 Planets = planets
             });
         }

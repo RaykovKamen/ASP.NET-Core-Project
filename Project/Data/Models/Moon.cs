@@ -5,7 +5,7 @@ namespace Project.Data.Models
 {
     using static DataConstants;
 
-    public class Planet
+    public class Moon
     {
         public int Id { get; init; }
 
@@ -25,7 +25,8 @@ namespace Project.Data.Models
         [Required]
         public double AtmosphericPressure { get; set; }
 
-        public int? SurfaceTemperature { get; set; }
+        [Required]
+        public int SurfaceTemperature { get; set; }
 
         [Required]
         [MaxLength(AnalysisMaxLength)]
@@ -34,14 +35,12 @@ namespace Project.Data.Models
         [Required]
         public string ImageUrl { get; set; }
 
-        public int PlanetarySystemId { get; set; }
+        public int PlanetId { get; set; }
 
-        public PlanetarySystem PlanetarySystem { get; init; }
-
-        public IEnumerable<Moon> Moons { get; init; } = new List<Moon>();
+        public Planet Planet { get; init; }
 
         public IEnumerable<Satellite> Satellites { get; init; } = new List<Satellite>();
 
-        public IEnumerable<Mineral> Minerals { get; init; } = new List<Mineral>();
+        public IEnumerable<Mineral> Mineral { get; init; } = new List<Mineral>();
     }
 }

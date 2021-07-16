@@ -18,21 +18,7 @@ namespace Project.Infrastructure
 
             data.Database.Migrate();
 
-            SeedPlanetarySystems(data);
-
             return app;
-        }
-
-        private static void SeedPlanetarySystems(ProjectDbContext data)
-        {
-            if (data.PlanetarySystems.Any())
-            {
-                return;
-            }
-
-            data.PlanetarySystems.Add(new PlanetarySystem { Name = "Sol" });
-
-            data.SaveChanges();
         }
     }
 }
