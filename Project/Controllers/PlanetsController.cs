@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Project.Data;
 using Project.Data.Models;
+using Project.Infrastructure;
 using Project.Models.Planets;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 
 namespace Project.Controllers
 {
@@ -51,14 +54,35 @@ namespace Project.Controllers
             return View(query);
         }
 
-        public IActionResult Add() => View(new AddPlanetFormModel
+        [Authorize]
+        public IActionResult Add()
         {
-            PlanetarySystems = this.GetPlanetarySystems()
-        });
+            if (!this.UserIsCreator())
+            {
+                return RedirectToAction(nameof(CreatorsController.Become), "Creators");
+            }
+
+            return View(new AddPlanetFormModel
+            {
+                PlanetarySystems = this.GetPlanetarySystems()
+            });
+        }
 
         [HttpPost]
+        [Authorize]
         public IActionResult Add(AddPlanetFormModel planet)
         {
+            var creatorId = this.data
+                .Creators
+                .Where(c => c.UserId == this.User.GetId())
+                .Select(c => c.Id)
+                .FirstOrDefault();
+
+            if (creatorId == 0)
+            {
+                return RedirectToAction(nameof(CreatorsController.Become), "Creators");
+            }
+
             if (!this.data.PlanetarySystems.Any(p => p.Id == planet.PlanetarySystemId))
             {
                 this.ModelState.AddModelError(nameof(planet.PlanetarySystemId), "Planetary System does not exist.");
@@ -81,7 +105,8 @@ namespace Project.Controllers
                 SurfaceTemperature = planet.SurfaceTemperature,
                 Analysis = planet.Analysis,
                 ImageUrl = planet.ImageUrl,
-                PlanetarySystemId = planet.PlanetarySystemId
+                PlanetarySystemId = planet.PlanetarySystemId,
+                CreatorId = creatorId
             };
 
             this.data.Planets.Add(planetData);
@@ -89,6 +114,12 @@ namespace Project.Controllers
 
             return RedirectToAction(nameof(All));
         }
+
+        private bool UserIsCreator()
+            => this.data
+                .Creators
+                .Any(c => c.UserId == this.User.GetId());
+
 
         private IEnumerable<PlanetarySystemViewModel> GetPlanetarySystems() => this.data
             .PlanetarySystems

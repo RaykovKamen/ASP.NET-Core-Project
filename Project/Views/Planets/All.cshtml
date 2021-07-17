@@ -40,6 +40,11 @@
     </div>
 </div>
 
+@if (!Model.Planets.Any())
+{
+    <h2 class="text-xl-center">No planets found by the given criteria!</h2>
+}
+
 <div class="row">
     @foreach (var planet in Model.Planets)
     {
