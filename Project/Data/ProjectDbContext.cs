@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Project.Data.Models;
 
@@ -21,6 +22,8 @@ namespace Project.Data
 
         public DbSet<Satellite> Satellites { get; init; }
 
+        public DbSet<Creator> Creators { get; init; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder
@@ -31,38 +34,52 @@ namespace Project.Data
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder
+                .Entity<Planet>()
+                .HasOne(p => p.Creator)
+                .WithMany(c => c.Planets)
+                .HasForeignKey(p => p.CreatorId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder
                 .Entity<Moon>()
-                .HasOne(p => p.Planet)
+                .HasOne(m => m.Planet)
                 .WithMany(p => p.Moons)
-                .HasForeignKey(p => p.PlanetId)
+                .HasForeignKey(m => m.PlanetId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder
                 .Entity<Mineral>()
-                .HasOne(p => p.Planet)
+                .HasOne(m => m.Planet)
                 .WithMany(p => p.Minerals)
-                .HasForeignKey(p => p.PlanetId)
+                .HasForeignKey(m => m.PlanetId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder
                 .Entity<Mineral>()
-                .HasOne(p => p.Moon)
-                .WithMany(p => p.Mineral)
-                .HasForeignKey(p => p.MoonId)
+                .HasOne(m => m.Moon)
+                .WithMany(m => m.Mineral)
+                .HasForeignKey(m => m.MoonId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder
                 .Entity<Satellite>()
-                .HasOne(p => p.Planet)
+                .HasOne(s => s.Planet)
                 .WithMany(p => p.Satellites)
-                .HasForeignKey(p => p.PlanetId)
+                .HasForeignKey(s => s.PlanetId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder
                 .Entity<Satellite>()
-                .HasOne(p => p.Moon)
-                .WithMany(p => p.Satellites)
-                .HasForeignKey(p => p.MoonId)
+                .HasOne(s => s.Moon)
+                .WithMany(m => m.Satellites)
+                .HasForeignKey(s => s.MoonId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .Entity<Creator>()
+                .HasOne<IdentityUser>()
+                .WithOne()
+                .HasForeignKey<Creator>(c => c.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             base.OnModelCreating(builder);

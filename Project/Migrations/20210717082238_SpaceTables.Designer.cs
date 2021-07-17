@@ -10,7 +10,7 @@ using Project.Data;
 namespace Project.Migrations
 {
     [DbContext(typeof(ProjectDbContext))]
-    [Migration("20210716131514_SpaceTables")]
+    [Migration("20210717082238_SpaceTables")]
     partial class SpaceTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -221,6 +221,30 @@ namespace Project.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("Project.Data.Models.Creator", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("Creators");
+                });
+
             modelBuilder.Entity("Project.Data.Models.Mineral", b =>
                 {
                     b.Property<int>("Id")
@@ -352,6 +376,9 @@ namespace Project.Migrations
                     b.Property<double>("AtmosphericPressure")
                         .HasColumnType("float");
 
+                    b.Property<int>("CreatorId")
+                        .HasColumnType("int");
+
                     b.Property<string>("ImageUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -377,6 +404,8 @@ namespace Project.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CreatorId");
 
                     b.HasIndex("PlanetarySystemId");
 
@@ -478,6 +507,15 @@ namespace Project.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Project.Data.Models.Creator", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithOne()
+                        .HasForeignKey("Project.Data.Models.Creator", "UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Project.Data.Models.Mineral", b =>
                 {
                     b.HasOne("Project.Data.Models.Moon", "Moon")
@@ -510,11 +548,19 @@ namespace Project.Migrations
 
             modelBuilder.Entity("Project.Data.Models.Planet", b =>
                 {
+                    b.HasOne("Project.Data.Models.Creator", "Creator")
+                        .WithMany("Planets")
+                        .HasForeignKey("CreatorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("Project.Data.Models.PlanetarySystem", "PlanetarySystem")
                         .WithMany("Planets")
                         .HasForeignKey("PlanetarySystemId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("Creator");
 
                     b.Navigation("PlanetarySystem");
                 });
@@ -536,6 +582,11 @@ namespace Project.Migrations
                     b.Navigation("Moon");
 
                     b.Navigation("Planet");
+                });
+
+            modelBuilder.Entity("Project.Data.Models.Creator", b =>
+                {
+                    b.Navigation("Planets");
                 });
 
             modelBuilder.Entity("Project.Data.Models.Moon", b =>

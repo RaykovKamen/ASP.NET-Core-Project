@@ -2,8 +2,6 @@
 using Project.Data;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using Project.Data.Models;
 
 namespace Project.Infrastructure
 {

@@ -36,7 +36,11 @@ namespace Project.Data.Models
 
         public int PlanetarySystemId { get; set; }
 
+        public int CreatorId { get; init; }
+
         public PlanetarySystem PlanetarySystem { get; init; }
+
+        public Creator Creator { get; init; }
 
         public IEnumerable<Moon> Moons { get; init; } = new List<Moon>();
 

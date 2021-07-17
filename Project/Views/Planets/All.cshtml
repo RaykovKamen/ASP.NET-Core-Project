@@ -47,7 +47,7 @@
             <div class="card mb-3">
                 <img class="card-img-top" src="@planet.ImageUrl" alt="@planet.Name @planet.PlanetarySystem">
                 <div class="card-body">
-                    <h5 class="card-title">@planet.Name</h5>
+                    <h5 class="card-title">@planet.Name (@planet.PlanetarySystem)</h5>
                     <a asp-controller="Planets" asp-action="Details" asp-route-id="@planet.Id" class="btn btn-primary">View More</a>
                 </div>
             </div>

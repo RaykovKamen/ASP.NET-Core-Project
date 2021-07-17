@@ -18,6 +18,18 @@ namespace Project.Controllers
         {
             var totalPlanets = this.data.Planets.Count();
 
+            var totalPlanetarySystems = this.data.PlanetarySystems.Count();
+
+            var planetarySystems = this.data
+                .PlanetarySystems
+                .OrderByDescending(p => p.Id)
+                .Select(p => new PlanetarySystemIndexViewModel
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                })
+                .ToList();
+
             var planets = this.data
                 .Planets
                 .OrderByDescending(p => p.Id)
@@ -31,9 +43,10 @@ namespace Project.Controllers
                 .ToList();
 
             return View(new IndexViewModel
-            {
+            {            
                 TotalPlanets = totalPlanets,
-                Planets = planets
+                Planets = planets,
+                PlanetarySystems = planetarySystems,
             });
         }
 

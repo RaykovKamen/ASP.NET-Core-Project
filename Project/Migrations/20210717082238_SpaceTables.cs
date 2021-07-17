@@ -166,6 +166,26 @@ namespace Project.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Creators",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Creators", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Creators_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Planets",
                 columns: table => new
                 {
@@ -179,11 +199,18 @@ namespace Project.Migrations
                     SurfaceTemperature = table.Column<int>(type: "int", nullable: true),
                     Analysis = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
                     ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PlanetarySystemId = table.Column<int>(type: "int", nullable: false)
+                    PlanetarySystemId = table.Column<int>(type: "int", nullable: false),
+                    CreatorId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Planets", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Planets_Creators_CreatorId",
+                        column: x => x.CreatorId,
+                        principalTable: "Creators",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Planets_PlanetarySystems_PlanetarySystemId",
                         column: x => x.PlanetarySystemId,
@@ -328,6 +355,12 @@ namespace Project.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Creators_UserId",
+                table: "Creators",
+                column: "UserId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Minerals_MoonId",
                 table: "Minerals",
                 column: "MoonId");
@@ -341,6 +374,11 @@ namespace Project.Migrations
                 name: "IX_Moons_PlanetId",
                 table: "Moons",
                 column: "PlanetId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Planets_CreatorId",
+                table: "Planets",
+                column: "CreatorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Planets_PlanetarySystemId",
@@ -385,16 +423,19 @@ namespace Project.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
                 name: "Moons");
 
             migrationBuilder.DropTable(
                 name: "Planets");
 
             migrationBuilder.DropTable(
+                name: "Creators");
+
+            migrationBuilder.DropTable(
                 name: "PlanetarySystems");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
         }
     }
 }

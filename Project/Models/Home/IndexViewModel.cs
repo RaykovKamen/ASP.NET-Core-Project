@@ -12,5 +12,7 @@ namespace Project.Models.Home
         public int TotalMisions { get; init; }
 
         public List<PlanetIndexViewModel> Planets { get; init; }
+
+        public List<PlanetarySystemIndexViewModel> PlanetarySystems { get; init; }
     }
 }
