@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Project.Services.Planets;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Project.Models.Planets
@@ -14,6 +15,6 @@ namespace Project.Models.Planets
 
         public int TotalPlanets { get; set; } 
 
-        public IEnumerable<PlanetListingViewModel> Planets { get; set; }
+        public IEnumerable<PlanetServiceModel> Planets { get; set; }
     }
 }

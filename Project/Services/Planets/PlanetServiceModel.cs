@@ -1,6 +1,6 @@
-﻿namespace Project.Models.Planets
+﻿namespace Project.Services.Planets
 {
-    public class PlanetListingViewModel
+    public class PlanetServiceModel
     {
         public int Id { get; set; }
 

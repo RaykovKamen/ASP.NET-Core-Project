@@ -1,5 +1,4 @@
-﻿using Project.Models.Planets;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Project.Models.Home
 {

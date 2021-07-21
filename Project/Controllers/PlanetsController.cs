@@ -4,52 +4,32 @@ using Project.Data;
 using Project.Data.Models;
 using Project.Infrastructure;
 using Project.Models.Planets;
+using Project.Services.Planets;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 
 namespace Project.Controllers
 {
     public class PlanetsController : Controller
     {
+        private readonly IPlanetService planets;
         private readonly ProjectDbContext data;
 
-        public PlanetsController(ProjectDbContext data)
-            => this.data = data;
+        public PlanetsController(IPlanetService planets, ProjectDbContext data)
+        {
+            this.planets = planets;
+            this.data = data;
+        }
 
         public IActionResult All([FromQuery] AllPlanetsQueryModel query)
         {
-            var planetsQuery = this.data.Planets.AsQueryable();
+            var queryResult = this.planets.All(
+                query.SearchTerm,
+                query.CurrentPage,
+                AllPlanetsQueryModel.PlanetsPerPage);
 
-            if (!string.IsNullOrWhiteSpace(query.SearchTerm))
-            {
-                planetsQuery = planetsQuery.Where(p =>
-                p.Name.ToLower().Contains(query.SearchTerm.ToLower()));
-            }
-
-            var totalPlanets = planetsQuery.Count();
-
-            var planets = planetsQuery
-                .Skip((query.CurrentPage - 1) * AllPlanetsQueryModel.PlanetsPerPage)
-                .Take(AllPlanetsQueryModel.PlanetsPerPage)
-                .OrderByDescending(p => p.Id)
-                .Select(p => new PlanetListingViewModel
-                {
-                    Id = p.Id,
-                    Name = p.Name,
-                    OrbitalDistance = (double)p.OrbitalDistance,
-                    OrbitalPeriod = (double)p.OrbitalPeriod,
-                    Radius = p.Radius,
-                    AtmosphericPressure = (double)p.AtmosphericPressure,
-                    SurfaceTemperature = p.SurfaceTemperature,
-                    Analysis = p.Analysis,
-                    ImageUrl = p.ImageUrl,
-                    PlanetarySystem = p.PlanetarySystem.Name
-                })
-                .ToList();
-
-            query.TotalPlanets = totalPlanets;
-            query.Planets = planets;
+            query.TotalPlanets = queryResult.TotalPlanets;
+            query.Planets = queryResult.Planets;
 
             return View(query);
         }

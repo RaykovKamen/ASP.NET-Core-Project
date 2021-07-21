@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Project.Data;
 using Project.Data.Models;
 using Project.Models.Moons;
@@ -15,12 +16,14 @@ namespace Project.Controllers
         public MoonsController(ProjectDbContext data)
             => this.data = data;
 
+        [Authorize]
         public IActionResult Add() => View(new AddMoonFormModel
         {
             Planets = this.GetPlanets()
         });
 
         [HttpPost]
+        [Authorize]
         public IActionResult Add(AddMoonFormModel moon)
         { 
             if (!ModelState.IsValid)

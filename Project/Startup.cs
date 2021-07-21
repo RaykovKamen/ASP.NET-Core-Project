@@ -7,6 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Project.Data;
 using Project.Infrastructure;
+using Project.Services.Planets;
+using Project.Services.Statistics;
 
 namespace Project
 {
@@ -35,8 +37,10 @@ namespace Project
                 })
                 .AddEntityFrameworkStores<ProjectDbContext>();
 
-            services
-                .AddControllersWithViews();
+            services.AddControllersWithViews();
+
+            services.AddTransient<IStatisticsService, StatisticsService>();
+            services.AddTransient<IPlanetService, PlanetService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

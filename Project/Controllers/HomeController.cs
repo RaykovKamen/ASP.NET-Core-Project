@@ -2,6 +2,7 @@
 using Project.Data;
 using Project.Models;
 using Project.Models.Home;
+using Project.Services.Statistics;
 using System.Diagnostics;
 using System.Linq;
 
@@ -9,17 +10,19 @@ namespace Project.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IStatisticsService statistics;
         private readonly ProjectDbContext data;
 
-        public HomeController(ProjectDbContext data)
-            => this.data = data;
+        public HomeController(
+            IStatisticsService statistics,
+            ProjectDbContext data)
+        {
+            this.statistics = statistics;
+            this.data = data;
+        }
 
         public IActionResult Index()
         {
-            var totalPlanets = this.data.Planets.Count();
-
-            var totalPlanetarySystems = this.data.PlanetarySystems.Count();
-
             var planetarySystems = this.data
                 .PlanetarySystems
                 .OrderByDescending(p => p.Id)
@@ -42,9 +45,12 @@ namespace Project.Controllers
                 .Take(3)
                 .ToList();
 
+            var totalStatistics = this.statistics.Total();
+
             return View(new IndexViewModel
             {            
-                TotalPlanets = totalPlanets,
+                TotalPlanets = totalStatistics.TotalPlanets,
+                TotalUsers = totalStatistics.TotalUsers,
                 Planets = planets,
                 PlanetarySystems = planetarySystems,
             });
