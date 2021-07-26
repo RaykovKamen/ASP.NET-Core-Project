@@ -1,0 +1,13 @@
+﻿@model IEnumerable<PlanetServiceModel>
+
+@{
+    ViewBag.Title = "My Planets";
+    ViewBag.AllowPlanetEdit = true;
+}
+
+@if (!Model.Any())
+{
+    <h2 class="text-xl-center">You do not have any planets yet!</h2>
+}
+
+<partial name="_PlanetsPartial" model="@Model" />

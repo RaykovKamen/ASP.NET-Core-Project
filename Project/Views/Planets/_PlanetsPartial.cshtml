@@ -1,0 +1,21 @@
+﻿@model IEnumerable<PlanetServiceModel>
+
+<div class="row">
+    @foreach (var planet in Model)
+    {
+        <div class="col-md-4">
+            <div class="card mb-3">
+                <img class="card-img-top" src="@planet.ImageUrl" alt="@planet.Name @planet.PlanetarySystemName">
+                <div class="card-body">
+                    <h5 class="card-title">@planet.Name (@planet.PlanetarySystemName)</h5>
+                    <a asp-controller="Planets" asp-action="Details" asp-route-id="@planet.Id" class="btn btn-primary">View</a>
+                    @if (ViewBag.AllowPlanetEdit == true)
+                    {
+                    <a asp-controller="Planets" asp-action="Edit" asp-route-id="@planet.Id" class="btn btn-warning">Eddit</a>
+                    <a asp-controller="Planets" asp-action="Delete" asp-route-id="@planet.Id" class="btn btn-danger">Delete</a>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>

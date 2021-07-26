@@ -51,6 +51,6 @@ namespace Project.Controllers
         private bool UserIsCreator()
             => this.data
                 .Creators
-                .Any(c => c.UserId == this.User.GetId());
+                .Any(c => c.UserId == this.User.Id());
     }
 }

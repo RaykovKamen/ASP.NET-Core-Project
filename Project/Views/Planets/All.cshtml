@@ -49,17 +49,4 @@
     <h2 class="text-xl-center">No planets found by the given criteria!</h2>
 }
 
-<div class="row">
-    @foreach (var planet in Model.Planets)
-    {
-        <div class="col-md-4">
-            <div class="card mb-3">
-                <img class="card-img-top" src="@planet.ImageUrl" alt="@planet.Name @planet.PlanetarySystem">
-                <div class="card-body">
-                    <h5 class="card-title">@planet.Name (@planet.PlanetarySystem)</h5>
-                    <a asp-controller="Planets" asp-action="Details" asp-route-id="@planet.Id" class="btn btn-primary">View More</a>
-                </div>
-            </div>
-        </div>
-    }
-</div>
+<partial name="_PlanetsPartial" model="@Model.Planets" />

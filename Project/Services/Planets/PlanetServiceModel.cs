@@ -20,6 +20,6 @@
 
         public string ImageUrl { get; init; }
 
-        public string PlanetarySystem { get; init; }
+        public string PlanetarySystemName { get; init; }
     }
 }

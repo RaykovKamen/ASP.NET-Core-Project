@@ -1,0 +1,60 @@
+﻿@model PlanetFormModel
+
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg8 offset-xl-3 col-xl-6">
+        <h2 class="heading-margin text-center">@ViewBag.Title</h2>
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control" placeholder="Habitat 7">
+                <span asp-validation-for="Name" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OrbitalDistance"></label>
+                <input asp-for="OrbitalDistance" class="form-control" placeholder="2.3 AU">
+                <span asp-validation-for="OrbitalDistance" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OrbitalPeriod"></label>
+                <input asp-for="OrbitalPeriod" class="form-control" placeholder="3.1 years">
+                <span asp-validation-for="OrbitalPeriod" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Radius"></label>
+                <input asp-for="Radius" class="form-control" placeholder="4912 km">
+                <span asp-validation-for="Radius" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AtmosphericPressure"></label>
+                <input asp-for="AtmosphericPressure" class="form-control" placeholder="2.3 atmospheres">
+                <span asp-validation-for="AtmosphericPressure" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SurfaceTemperature"></label>
+                <input asp-for="SurfaceTemperature" class="form-control" placeholder="17C">
+                <span asp-validation-for="SurfaceTemperature" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Analysis"></label>
+                <textarea asp-for="Analysis" rows="4" class="form-control" placeholder="The planet's atmsphere is largely argon-nitrogen."></textarea>
+                <span asp-validation-for="Analysis" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageUrl"></label>
+                <textarea asp-for="ImageUrl" class="form-control" placeholder="Planet picture"></textarea>
+                <span asp-validation-for="ImageUrl" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PlanetarySystemId"></label>
+                <select asp-for="PlanetarySystemId" class="form-control">
+                    @foreach (var Planetarysystem in Model.PlanetarySystems)
+                    {
+                        <option value="@Planetarysystem.Id">@Planetarysystem.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="PlanetarySystemId" class="small text-danger"></span>
+            </div>
+            <input class="btn btn-primary mt-3" type="submit" value="Save" />
+        </form>
+    </div>
+</div>

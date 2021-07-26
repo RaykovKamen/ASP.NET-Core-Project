@@ -1,24 +1,22 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Project.Data;
-using Project.Data.Models;
 using Project.Infrastructure;
 using Project.Models.Planets;
+using Project.Services.Creators;
 using Project.Services.Planets;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Project.Controllers
 {
     public class PlanetsController : Controller
     {
         private readonly IPlanetService planets;
-        private readonly ProjectDbContext data;
-
-        public PlanetsController(IPlanetService planets, ProjectDbContext data)
+        private readonly ICreatorService creators;
+        public PlanetsController(
+            IPlanetService planets, 
+            ICreatorService creators)
         {
             this.planets = planets;
-            this.data = data;
+            this.creators = creators;
         }
 
         public IActionResult All([FromQuery] AllPlanetsQueryModel query)
@@ -35,79 +33,138 @@ namespace Project.Controllers
         }
 
         [Authorize]
+        public IActionResult Mine()
+        {
+            var myPlanets = this.planets.ByUser(this.User.Id());
+
+            return View(myPlanets);
+        }
+
+        [Authorize]
         public IActionResult Add()
         {
-            if (!this.UserIsCreator())
+            if (!this.creators.IsCreator(this.User.Id()))
             {
                 return RedirectToAction(nameof(CreatorsController.Become), "Creators");
             }
 
-            return View(new AddPlanetFormModel
+            return View(new PlanetFormModel
             {
-                PlanetarySystems = this.GetPlanetarySystems()
+                PlanetarySystems = this.planets.AllPlanetarySystems()
             });
         }
 
         [HttpPost]
         [Authorize]
-        public IActionResult Add(AddPlanetFormModel planet)
+        public IActionResult Add(PlanetFormModel planet)
         {
-            var creatorId = this.data
-                .Creators
-                .Where(c => c.UserId == this.User.GetId())
-                .Select(c => c.Id)
-                .FirstOrDefault();
+            var creatorId = this.creators.IdByUser(this.User.Id());
 
             if (creatorId == 0)
             {
                 return RedirectToAction(nameof(CreatorsController.Become), "Creators");
             }
 
-            if (!this.data.PlanetarySystems.Any(p => p.Id == planet.PlanetarySystemId))
+            if (!this.planets.PlanetarySystemExists(planet.PlanetarySystemId))
             {
                 this.ModelState.AddModelError(nameof(planet.PlanetarySystemId), "Planetary System does not exist.");
             }
 
             if (!ModelState.IsValid)
             {
-                planet.PlanetarySystems = this.GetPlanetarySystems();
+                planet.PlanetarySystems = this.planets.AllPlanetarySystems();
 
                 return View(planet);
             }
 
-            var planetData = new Planet
-            {
-                Name = planet.Name,
-                OrbitalDistance = (double)planet.OrbitalDistance,
-                OrbitalPeriod = (double)planet.OrbitalPeriod,
-                Radius = (int)planet.Radius,
-                AtmosphericPressure = (double)planet.AtmosphericPressure,
-                SurfaceTemperature = planet.SurfaceTemperature,
-                Analysis = planet.Analysis,
-                ImageUrl = planet.ImageUrl,
-                PlanetarySystemId = planet.PlanetarySystemId,
-                CreatorId = creatorId
-            };
-
-            this.data.Planets.Add(planetData);
-            this.data.SaveChanges();
+            this.planets.Create(
+                planet.Name,
+                (double)planet.OrbitalDistance,
+                (double)planet.OrbitalPeriod,
+                (int)planet.Radius,
+                (double)planet.AtmosphericPressure,
+                (int)planet.SurfaceTemperature,
+                planet.Analysis,
+                planet.ImageUrl,
+                planet.PlanetarySystemId,
+                creatorId);
 
             return RedirectToAction(nameof(All));
         }
 
-        private bool UserIsCreator()
-            => this.data
-                .Creators
-                .Any(c => c.UserId == this.User.GetId());
+        [Authorize]
+        public IActionResult Edit(int id)
+        {
+            var userId = this.User.Id();
 
-
-        private IEnumerable<PlanetarySystemViewModel> GetPlanetarySystems() => this.data
-            .PlanetarySystems
-            .Select(p => new PlanetarySystemViewModel
+            if (!this.creators.IsCreator(userId))
             {
-                Id = p.Id,
-                Name = p.Name
-            })
-            .ToList();
+                return RedirectToAction(nameof(CreatorsController.Become), "Creators");
+            }
+
+            var planet = this.planets.Details(id);
+
+            if (planet.UserId != userId)
+            {
+                return Unauthorized();
+            }
+
+            return View(new PlanetFormModel
+            {
+                Name = planet.Name,
+                OrbitalDistance = planet.OrbitalDistance,
+                OrbitalPeriod = planet.OrbitalPeriod,
+                Radius = planet.Radius,
+                AtmosphericPressure = planet.AtmosphericPressure,
+                SurfaceTemperature = planet.SurfaceTemperature,
+                Analysis = planet.Analysis,
+                ImageUrl = planet.ImageUrl,
+                PlanetarySystemId = planet.PlanetarySystemId,
+                PlanetarySystems = this.planets.AllPlanetarySystems()
+            });
+        }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult Edit(int id, PlanetFormModel planet)
+        {
+            var creatorId = this.creators.IdByUser(this.User.Id());
+
+            if (creatorId == 0)
+            {
+                return RedirectToAction(nameof(CreatorsController.Become), "Creators");
+            }
+
+            if (!this.planets.PlanetarySystemExists(planet.PlanetarySystemId))
+            {
+                this.ModelState.AddModelError(nameof(planet.PlanetarySystemId), "Planetary System does not exist.");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                planet.PlanetarySystems = this.planets.AllPlanetarySystems();
+
+                return View(planet);
+            }
+
+            if (!this.planets.IsByCreator(id, creatorId))
+            {
+                return BadRequest();
+            }
+
+            this.planets.Edit(
+                id,
+                planet.Name,
+                (double)planet.OrbitalDistance,
+                (double)planet.OrbitalPeriod,
+                (int)planet.Radius,
+                (double)planet.AtmosphericPressure,
+                (int)planet.SurfaceTemperature,
+                planet.Analysis,
+                planet.ImageUrl,
+                planet.PlanetarySystemId);
+
+            return RedirectToAction(nameof(All));
+        }
     }
 }

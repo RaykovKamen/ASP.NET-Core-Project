@@ -22,7 +22,7 @@ namespace Project.Controllers
         [Authorize]
         public IActionResult Become(BecomeCreatorFormModel creator)
         {
-            var userId = this.User.GetId();
+            var userId = this.User.Id();
 
             var userIdAlreadyCreator = this.data
                 .Creators

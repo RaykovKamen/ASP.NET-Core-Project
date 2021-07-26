@@ -1,4 +1,5 @@
 ﻿using Project.Data;
+using Project.Services.Planets;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -6,7 +7,7 @@ namespace Project.Models.Planets
 {
     using static DataConstants;
 
-    public class AddPlanetFormModel
+    public class PlanetFormModel
     {
         [Required]
         [StringLength(NameMaxLength, MinimumLength = NameMinLength)]
@@ -42,6 +43,6 @@ namespace Project.Models.Planets
         [Display(Name = "Planetary System")]
         public int PlanetarySystemId { get; init; }
 
-        public IEnumerable<PlanetarySystemViewModel> PlanetarySystems { get; set; }
+        public IEnumerable<PlanetarySystemServiceModel> PlanetarySystems { get; set; }
     }
 }
