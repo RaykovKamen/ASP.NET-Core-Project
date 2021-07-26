@@ -97,14 +97,14 @@ namespace Project.Controllers
         {
             var userId = this.User.Id();
 
-            if (!this.creators.IsCreator(userId))
+            if (!this.creators.IsCreator(userId) && !User.IsAdmin())
             {
                 return RedirectToAction(nameof(CreatorsController.Become), "Creators");
             }
 
             var planet = this.planets.Details(id);
 
-            if (planet.UserId != userId)
+            if (planet.UserId != userId && !User.IsAdmin())
             {
                 return Unauthorized();
             }
@@ -130,7 +130,7 @@ namespace Project.Controllers
         {
             var creatorId = this.creators.IdByUser(this.User.Id());
 
-            if (creatorId == 0)
+            if (creatorId == 0 && !User.IsAdmin())
             {
                 return RedirectToAction(nameof(CreatorsController.Become), "Creators");
             }
@@ -147,7 +147,7 @@ namespace Project.Controllers
                 return View(planet);
             }
 
-            if (!this.planets.IsByCreator(id, creatorId))
+            if (!this.planets.IsByCreator(id, creatorId) && !User.IsAdmin())
             {
                 return BadRequest();
             }

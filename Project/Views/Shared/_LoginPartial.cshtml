@@ -1,7 +1,8 @@
-﻿@using Microsoft.AspNetCore.Identity
+﻿@using Project.Data.Models
+@using Microsoft.AspNetCore.Identity
 
-@inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
 @inject ICreatorService Creators
 
 <ul class="navbar-nav">
@@ -9,14 +10,15 @@
     {
         var userId = User.Id();
         var userIsCreator = Creators.IsCreator(userId);
+        var userIsAdmin = User.IsAdmin();
 
-        @if (userIsCreator)
+        @if (userIsCreator && !userIsAdmin)
         {
             <li class="nav-item">
                 <a class="nav-link text-dark" asp-area="" asp-controller="Planets" asp-action="Mine">My Planets</a>
             </li>
         }
-        else
+        else if(!userIsAdmin)
         {
             <li class="nav-item">
                 <a class="nav-link text-dark" asp-area="" asp-controller="Creators" asp-action="Become">Become Creator</a>

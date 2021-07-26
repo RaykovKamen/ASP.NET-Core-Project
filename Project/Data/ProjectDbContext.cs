@@ -1,11 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Project.Data.Models;
 
 namespace Project.Data
 {
-    public class ProjectDbContext : IdentityDbContext
+    public class ProjectDbContext : IdentityDbContext<User>
     {
         public ProjectDbContext(DbContextOptions<ProjectDbContext> options)
             : base(options)
@@ -77,7 +76,7 @@ namespace Project.Data
 
             builder
                 .Entity<Creator>()
-                .HasOne<IdentityUser>()
+                .HasOne<User>()
                 .WithOne()
                 .HasForeignKey<Creator>(c => c.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
