@@ -11,7 +11,7 @@ namespace Project.Data.Models
 
         [Required]
         [MaxLength(NameMaxLength)]
-        public string Name { get; init; }
+        public string Name { get; set; }
 
         [Required]
         public double OrbitalDistance { get; set; }

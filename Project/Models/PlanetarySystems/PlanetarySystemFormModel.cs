@@ -5,7 +5,7 @@ namespace Project.Models.PlanetarySystems
 {
     using static DataConstants;
 
-    public class AddPlanetarySystemFormModel
+    public class PlanetarySystemFormModel
     {
         [Required]
         [StringLength(NameMaxLength, MinimumLength = NameMinLength)]

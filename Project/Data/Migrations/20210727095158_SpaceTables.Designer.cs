@@ -10,8 +10,8 @@ using Project.Data;
 namespace Project.Migrations
 {
     [DbContext(typeof(ProjectDbContext))]
-    [Migration("20210726161040_ProjectTables")]
-    partial class ProjectTables
+    [Migration("20210727095158_SpaceTables")]
+    partial class SpaceTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

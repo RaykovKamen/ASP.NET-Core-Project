@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Project.Migrations
 {
-    public partial class ProjectTables : Migration
+    public partial class SpaceTables : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

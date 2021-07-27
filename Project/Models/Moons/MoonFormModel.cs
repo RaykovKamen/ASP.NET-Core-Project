@@ -1,5 +1,5 @@
 ﻿using Project.Data;
-using Project.Models.Planets;
+using Project.Services.Moons;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -7,7 +7,7 @@ namespace Project.Models.Moons
 {
     using static DataConstants;
 
-    public class AddMoonFormModel
+    public class MoonFormModel
     {
         [Required]
         [StringLength(NameMaxLength, MinimumLength = NameMinLength)]
@@ -44,6 +44,6 @@ namespace Project.Models.Moons
         [Display(Name = "Planet")]
         public int PlanetId { get; init; }
 
-        public IEnumerable<PlanetViewModel> Planets { get; set; }
+        public IEnumerable<MoonPlanetServiceModel> Planets { get; set; }
     }
 }

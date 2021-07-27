@@ -10,6 +10,8 @@ using Project.Data;
 using Project.Data.Models;
 using Project.Infrastructure;
 using Project.Services.Creators;
+using Project.Services.Moons;
+using Project.Services.PlanetarySystems;
 using Project.Services.Planets;
 using Project.Services.Statistics;
 
@@ -47,6 +49,8 @@ namespace Project
             });
 
             services.AddTransient<IStatisticsService, StatisticsService>();
+            services.AddTransient<IMoonService, MoonService>();
+            services.AddTransient<IPlanetarySystemService, PlanetarySystemService>();
             services.AddTransient<ICreatorService, CreatorService>();
             services.AddTransient<IPlanetService, PlanetService>();
         }

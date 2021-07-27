@@ -1,24 +1,28 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Project.Data;
-using Project.Data.Models;
 using Project.Infrastructure;
 using Project.Models.PlanetarySystems;
-using System.Linq;
+using Project.Services.Creators;
+using Project.Services.PlanetarySystems;
 
 namespace Project.Controllers
 {
     public class PlanetarySystemsController : Controller
     {
-        private readonly ProjectDbContext data;
-
-        public PlanetarySystemsController(ProjectDbContext data)
-            => this.data = data;
+        private readonly IPlanetarySystemService planetarySystems;
+        private readonly ICreatorService creators;
+        public PlanetarySystemsController(
+            IPlanetarySystemService planetarySystems,
+            ICreatorService creators)
+        {
+            this.planetarySystems = planetarySystems;
+            this.creators = creators;
+        }
 
         [Authorize]
-        public IActionResult Add() 
+        public IActionResult Add()
         {
-            if (!this.UserIsCreator())
+            if (!this.creators.IsCreator(this.User.Id()))
             {
                 return RedirectToAction(nameof(CreatorsController.Become), "Creators");
             }
@@ -28,29 +32,25 @@ namespace Project.Controllers
 
         [HttpPost]
         [Authorize]
-        public IActionResult Add(AddPlanetarySystemFormModel planetarySystem)
-        {          
-            if (this.data.PlanetarySystems.Any(p => p.Name == planetarySystem.Name))
+        public IActionResult Add(PlanetarySystemFormModel planetarySystem)
+        {
+            var creatorId = this.creators.IdByUser(this.User.Id());
+
+            if (creatorId == 0)
+            {
+                return RedirectToAction(nameof(CreatorsController.Become), "Creators");
+            }
+
+            if (this.planetarySystems.PlanetarySystemExists(planetarySystem.Name))
             {
                 this.ModelState.AddModelError(nameof(planetarySystem.Name), "Planetary System already exist.");
 
                 return View(planetarySystem);
             }
 
-            var planearySystemtData = new PlanetarySystem
-            {
-                Name = planetarySystem.Name,
-            };
-
-            this.data.PlanetarySystems.Add(planearySystemtData);
-            this.data.SaveChanges();
+            this.planetarySystems.Create(planetarySystem.Name);
 
             return Redirect("/Planets/Add");
         }
-
-        private bool UserIsCreator()
-            => this.data
-                .Creators
-                .Any(c => c.UserId == this.User.Id());
     }
 }
