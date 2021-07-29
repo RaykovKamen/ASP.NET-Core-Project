@@ -2,7 +2,7 @@
 
 namespace Project.Infrastructure
 {
-    using static WebConstants;
+    using static Project.Areas.Admin.AdminConstants;
 
     public static class ClaimsPrincipalExtensions
     {

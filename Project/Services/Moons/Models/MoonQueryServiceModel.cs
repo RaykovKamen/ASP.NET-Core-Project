@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Project.Services.Moons
+namespace Project.Services.Moons.Models
 {
     public class MoonQueryServiceModel
     {

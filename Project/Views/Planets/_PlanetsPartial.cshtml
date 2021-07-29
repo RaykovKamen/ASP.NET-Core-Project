@@ -8,7 +8,7 @@
                 <img class="card-img-top" src="@planet.ImageUrl" alt="@planet.Name @planet.PlanetarySystemName">
                 <div class="card-body">
                     <h5 class="card-title">@planet.Name (@planet.PlanetarySystemName)</h5>
-                    <a asp-controller="Planets" asp-action="Details" asp-route-id="@planet.Id" class="btn btn-primary">View</a>
+                    <a asp-controller="Moons" asp-action="All" asp-route-id="@planet.Id" class="btn btn-primary">View</a>
                     @if (ViewBag.AllowPlanetEdit == true || User.IsAdmin())
                     {
                         <a asp-controller="Planets" asp-action="Edit" asp-route-id="@planet.Id" class="btn btn-warning">Eddit</a>

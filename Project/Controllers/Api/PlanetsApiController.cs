@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Project.Models.Api.Planets;
 using Project.Services.Planets;
+using Project.Services.Planets.Models;
 
 namespace Project.Controllers.Api
 {

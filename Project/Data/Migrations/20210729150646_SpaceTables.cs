@@ -234,11 +234,18 @@ namespace Project.Migrations
                     SurfaceTemperature = table.Column<int>(type: "int", nullable: false),
                     Analysis = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
                     ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PlanetId = table.Column<int>(type: "int", nullable: false)
+                    PlanetId = table.Column<int>(type: "int", nullable: false),
+                    CreatorId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Moons", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Moons_Creators_CreatorId",
+                        column: x => x.CreatorId,
+                        principalTable: "Creators",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Moons_Planets_PlanetId",
                         column: x => x.PlanetId,
@@ -370,6 +377,11 @@ namespace Project.Migrations
                 name: "IX_Minerals_PlanetId",
                 table: "Minerals",
                 column: "PlanetId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Moons_CreatorId",
+                table: "Moons",
+                column: "CreatorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Moons_PlanetId",

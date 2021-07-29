@@ -1,4 +1,4 @@
-﻿using Project.Services.Moons;
+﻿using Project.Services.Moons.Models;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 

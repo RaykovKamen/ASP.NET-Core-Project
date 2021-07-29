@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Project.Services.Moons.Models;
+using System.Collections.Generic;
 
 namespace Project.Services.Moons
 {
@@ -20,7 +21,8 @@ namespace Project.Services.Moons
             int surfaceTemperature,
             string analysis,
             string imageUrl,
-            int planetId);
+            int planetId,
+            int creatorId);
 
         bool Edit(
             int moonId,
@@ -33,6 +35,10 @@ namespace Project.Services.Moons
             string analysis,
             string imageUrl,
             int planetId);
+
+        IEnumerable<MoonServiceModel> ByUser(string userId);
+
+        bool IsByCreator(int planetId, int creatorId);
 
         IEnumerable<MoonPlanetServiceModel> AllPlanets();
 

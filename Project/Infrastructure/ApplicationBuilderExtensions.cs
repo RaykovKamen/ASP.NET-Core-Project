@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Project.Infrastructure
 {
-    using static WebConstants;
+    using static Project.Areas.Admin.AdminConstants;
 
     public static class ApplicationBuilderExtensions
     {

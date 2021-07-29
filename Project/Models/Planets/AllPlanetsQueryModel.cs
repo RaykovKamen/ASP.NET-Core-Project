@@ -1,4 +1,4 @@
-﻿using Project.Services.Planets;
+﻿using Project.Services.Planets.Models;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 

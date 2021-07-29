@@ -17,5 +17,7 @@ namespace Project.Data.Models
         public string UserId { get; set; }
 
         public IEnumerable<Planet> Planets { get; init; } = new List<Planet>(); 
+
+        public IEnumerable<Moon> Moons { get; init; } = new List<Moon>();
     }
 }

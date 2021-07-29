@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using Microsoft.AspNetCore.Mvc;
 using Project.Data;
 using Project.Models;
 using Project.Models.Home;
@@ -11,13 +13,16 @@ namespace Project.Controllers
     public class HomeController : Controller
     {
         private readonly IStatisticsService statistics;
+        private readonly IConfigurationProvider mapper;
         private readonly ProjectDbContext data;
 
         public HomeController(
             IStatisticsService statistics,
+            IMapper mapper,
             ProjectDbContext data)
         {
             this.statistics = statistics;
+            this.mapper = mapper.ConfigurationProvider;
             this.data = data;
         }
 
@@ -26,22 +31,13 @@ namespace Project.Controllers
             var planetarySystems = this.data
                 .PlanetarySystems
                 .OrderByDescending(p => p.Id)
-                .Select(p => new PlanetarySystemIndexViewModel
-                {
-                    Id = p.Id,
-                    Name = p.Name,
-                })
+                .ProjectTo<PlanetarySystemIndexViewModel>(this.mapper)
                 .ToList();
 
             var planets = this.data
                 .Planets
                 .OrderByDescending(p => p.Id)
-                .Select(p => new PlanetIndexViewModel
-                {
-                    Id = p.Id,
-                    Name = p.Name,
-                    ImageUrl = p.ImageUrl,
-                })
+                .ProjectTo<PlanetIndexViewModel>(this.mapper)
                 .Take(3)
                 .ToList();
 

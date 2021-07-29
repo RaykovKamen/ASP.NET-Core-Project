@@ -1,4 +1,4 @@
-﻿namespace Project.Services.Planets
+﻿namespace Project.Services.Planets.Models
 {
     public class PlanetServiceModel
     {

@@ -1,10 +1,10 @@
-﻿namespace Project.Services.Planets
+﻿namespace Project.Services.Moons.Models
 {
-    public class PlanetDetailsServiceModel : PlanetServiceModel
+    public class MoonDetailsServiceModel : MoonServiceModel
     {
         public int CreatorId { get; init; }
 
-        public int PlanetarySystemId { get; init; }
+        public int PlanetId { get; init; }
 
         public string CreatorName { get; init; }
 

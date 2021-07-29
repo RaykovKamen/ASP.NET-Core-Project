@@ -48,6 +48,11 @@ namespace Project.Controllers
                 return View(planetarySystem);
             }
 
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
             this.planetarySystems.Create(planetarySystem.Name);
 
             return Redirect("/Planets/Add");

@@ -37,7 +37,11 @@ namespace Project.Data.Models
 
         public int PlanetId { get; set; }
 
+        public int CreatorId { get; init; }
+
         public Planet Planet { get; init; }
+
+        public Creator Creator { get; init; }
 
         public IEnumerable<Satellite> Satellites { get; init; } = new List<Satellite>();
 

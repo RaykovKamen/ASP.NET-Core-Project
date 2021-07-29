@@ -263,6 +263,9 @@ namespace Project.Migrations
                     b.Property<double>("AtmosphericPressure")
                         .HasColumnType("float");
 
+                    b.Property<int>("CreatorId")
+                        .HasColumnType("int");
+
                     b.Property<string>("ImageUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -288,6 +291,8 @@ namespace Project.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CreatorId");
 
                     b.HasIndex("PlanetId");
 
@@ -539,11 +544,19 @@ namespace Project.Migrations
 
             modelBuilder.Entity("Project.Data.Models.Moon", b =>
                 {
+                    b.HasOne("Project.Data.Models.Creator", "Creator")
+                        .WithMany("Moons")
+                        .HasForeignKey("CreatorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("Project.Data.Models.Planet", "Planet")
                         .WithMany("Moons")
                         .HasForeignKey("PlanetId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("Creator");
 
                     b.Navigation("Planet");
                 });
@@ -588,6 +601,8 @@ namespace Project.Migrations
 
             modelBuilder.Entity("Project.Data.Models.Creator", b =>
                 {
+                    b.Navigation("Moons");
+
                     b.Navigation("Planets");
                 });
 

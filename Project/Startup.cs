@@ -43,6 +43,8 @@ namespace Project
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ProjectDbContext>();
 
+            services.AddAutoMapper(typeof(Startup));
+
             services.AddControllersWithViews(options =>
             {
                 options.Filters.Add <AutoValidateAntiforgeryTokenAttribute>();
@@ -78,6 +80,7 @@ namespace Project
                 .UseAuthorization()
                 .UseEndpoints(endpoints =>
                 {
+                    endpoints.MapDefaultAreaRoute();
                     endpoints.MapDefaultControllerRoute();
                     endpoints.MapRazorPages();
                 });     

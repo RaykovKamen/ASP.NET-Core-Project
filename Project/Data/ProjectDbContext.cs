@@ -47,6 +47,13 @@ namespace Project.Data
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder
+                .Entity<Moon>()
+                .HasOne(m => m.Creator)
+                .WithMany(c => c.Moons)
+                .HasForeignKey(m => m.CreatorId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder
                 .Entity<Mineral>()
                 .HasOne(m => m.Planet)
                 .WithMany(p => p.Minerals)

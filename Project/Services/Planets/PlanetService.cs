@@ -1,5 +1,8 @@
-﻿using Project.Data;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using Project.Data;
 using Project.Data.Models;
+using Project.Services.Planets.Models;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,9 +11,13 @@ namespace Project.Services.Planets
     public class PlanetService : IPlanetService
     {
         private readonly ProjectDbContext data;
+        private readonly IConfigurationProvider mapper;
 
-        public PlanetService(ProjectDbContext data)
-            => this.data = data;
+        public PlanetService(ProjectDbContext data, IMapper mapper)
+        {
+            this.data = data;
+            this.mapper = mapper.ConfigurationProvider;
+        }
 
         public PlanetQueryServiceModel All(
             string searchTerm,
@@ -24,10 +31,11 @@ namespace Project.Services.Planets
                 planetsQuery = planetsQuery.Where(p =>
                 p.Name.ToLower().Contains(searchTerm.ToLower()));
             }
-
+            
             var totalPlanets = planetsQuery.Count();
 
             var planets = GetPlanets(planetsQuery
+                .OrderBy(p => p.Name)
                 .Skip((currentPage - 1) * planetsPerPage)
                 .Take(planetsPerPage));
 
@@ -44,22 +52,7 @@ namespace Project.Services.Planets
             => this.data
             .Planets
             .Where(p => p.Id == id)
-            .Select(p => new PlanetDetailsServiceModel
-            {
-                Id = p.Id,
-                Name = p.Name,
-                OrbitalDistance = (double)p.OrbitalDistance,
-                OrbitalPeriod = (double)p.OrbitalPeriod,
-                Radius = p.Radius,
-                AtmosphericPressure = (double)p.AtmosphericPressure,
-                SurfaceTemperature = p.SurfaceTemperature,
-                Analysis = p.Analysis,
-                ImageUrl = p.ImageUrl,
-                PlanetarySystemName = p.PlanetarySystem.Name,
-                CreatorId = p.CreatorId,
-                CreatorName = p.Creator.Name,
-                UserId = p.Creator.UserId
-            })
+            .ProjectTo<PlanetDetailsServiceModel>(this.mapper)
             .FirstOrDefault();
 
         public int Create(string name, double orbitalDistance, double orbitalPeriod, int radius, double atmosphericPressure, int surfaceTemperature, string analysis, string imageUrl, int planetarySystemId, int creatorId)

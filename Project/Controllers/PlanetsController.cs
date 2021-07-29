@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Project.Infrastructure;
 using Project.Models.Planets;
@@ -11,12 +12,15 @@ namespace Project.Controllers
     {
         private readonly IPlanetService planets;
         private readonly ICreatorService creators;
+        private readonly IMapper mapper;
         public PlanetsController(
-            IPlanetService planets, 
-            ICreatorService creators)
+            IPlanetService planets,
+            ICreatorService creators, 
+            IMapper mapper)
         {
             this.planets = planets;
             this.creators = creators;
+            this.mapper = mapper;
         }
 
         public IActionResult All([FromQuery] AllPlanetsQueryModel query)
@@ -39,7 +43,7 @@ namespace Project.Controllers
 
             return View(myPlanets);
         }
-
+ 
         [Authorize]
         public IActionResult Add()
         {
@@ -109,19 +113,11 @@ namespace Project.Controllers
                 return Unauthorized();
             }
 
-            return View(new PlanetFormModel
-            {
-                Name = planet.Name,
-                OrbitalDistance = planet.OrbitalDistance,
-                OrbitalPeriod = planet.OrbitalPeriod,
-                Radius = planet.Radius,
-                AtmosphericPressure = planet.AtmosphericPressure,
-                SurfaceTemperature = planet.SurfaceTemperature,
-                Analysis = planet.Analysis,
-                ImageUrl = planet.ImageUrl,
-                PlanetarySystemId = planet.PlanetarySystemId,
-                PlanetarySystems = this.planets.AllPlanetarySystems()
-            });
+            var planetForm = this.mapper.Map<PlanetFormModel>(planet);
+
+            planetForm.PlanetarySystems = this.planets.AllPlanetarySystems();
+
+            return View(planetForm);
         }
 
         [HttpPost]

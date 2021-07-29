@@ -1,4 +1,4 @@
-﻿namespace Project.Services.Moons
+﻿namespace Project.Services.Moons.Models
 {
     public class MoonServiceModel
     {

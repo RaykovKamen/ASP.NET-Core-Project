@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Project.Services.Planets
+namespace Project.Services.Planets.Models
 {
     public class PlanetQueryServiceModel
     {

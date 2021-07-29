@@ -1,5 +1,8 @@
-﻿using Project.Data;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using Project.Data;
 using Project.Data.Models;
+using Project.Services.Moons.Models;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,9 +11,13 @@ namespace Project.Services.Moons
     public class MoonService : IMoonService
     {
         private readonly ProjectDbContext data;
+        private readonly IConfigurationProvider mapper;
 
-        public MoonService(ProjectDbContext data)
-            => this.data = data;
+        public MoonService(ProjectDbContext data, IMapper mapper)
+        {
+            this.data = data;
+            this.mapper = mapper.ConfigurationProvider;
+        }
 
         public MoonQueryServiceModel All(
             string searchTerm,
@@ -28,6 +35,7 @@ namespace Project.Services.Moons
             var totalMoons = moonsQuery.Count();
 
             var moons = GetMoons(moonsQuery
+                .OrderBy(p => p.Name)
                 .Skip((currentPage - 1) * moonsPerPage)
                 .Take(moonsPerPage));
 
@@ -44,22 +52,10 @@ namespace Project.Services.Moons
             => this.data
             .Moons
             .Where(m => m.Id == id)
-            .Select(m => new MoonDetailsServiceModel
-            {
-                Id = m.Id,
-                Name = m.Name,
-                OrbitalDistance = (double)m.OrbitalDistance,
-                OrbitalPeriod = (double)m.OrbitalPeriod,
-                Radius = m.Radius,
-                AtmosphericPressure = (double)m.AtmosphericPressure,
-                SurfaceTemperature = m.SurfaceTemperature,
-                Analysis = m.Analysis,
-                ImageUrl = m.ImageUrl,
-                PlanetName = m.Planet.Name
-            })
+            .ProjectTo<MoonDetailsServiceModel>(this.mapper)
             .FirstOrDefault();
 
-        public int Create(string name, double orbitalDistance, double orbitalPeriod, int radius, double atmosphericPressure, int surfaceTemperature, string analysis, string imageUrl, int planetId)
+        public int Create(string name, double orbitalDistance, double orbitalPeriod, int radius, double atmosphericPressure, int surfaceTemperature, string analysis, string imageUrl, int planetId, int creatorId)
         {
             var moonData = new Moon
             {
@@ -71,7 +67,8 @@ namespace Project.Services.Moons
                 SurfaceTemperature = surfaceTemperature,
                 Analysis = analysis,
                 ImageUrl = imageUrl,
-                PlanetId = planetId
+                PlanetId = planetId,
+                CreatorId = creatorId
             };
 
             this.data.Moons.Add(moonData);
@@ -104,6 +101,16 @@ namespace Project.Services.Moons
             return true;
         }
 
+        public IEnumerable<MoonServiceModel> ByUser(string userId)
+            => GetMoons(this.data
+            .Moons
+            .Where(m => m.Creator.UserId == userId));
+
+        public bool IsByCreator(int moonId, int creatorId)
+        => this.data
+            .Moons
+            .Any(p => p.Id == moonId && p.CreatorId == creatorId);
+
         public IEnumerable<MoonPlanetServiceModel> AllPlanets()
             => this.data
             .Planets
@@ -121,18 +128,18 @@ namespace Project.Services.Moons
 
         private static IEnumerable<MoonServiceModel> GetMoons(IQueryable<Moon> moonQuery)
             => moonQuery
-            .Select(p => new MoonServiceModel
+            .Select(m => new MoonServiceModel
             {
-                Id = p.Id,
-                Name = p.Name,
-                OrbitalDistance = (double)p.OrbitalDistance,
-                OrbitalPeriod = (double)p.OrbitalPeriod,
-                Radius = p.Radius,
-                AtmosphericPressure = (double)p.AtmosphericPressure,
-                SurfaceTemperature = p.SurfaceTemperature,
-                Analysis = p.Analysis,
-                ImageUrl = p.ImageUrl,
-                PlanetName = p.Planet.Name
+                Id = m.Id,
+                Name = m.Name,
+                OrbitalDistance = (double)m.OrbitalDistance,
+                OrbitalPeriod = (double)m.OrbitalPeriod,
+                Radius = m.Radius,
+                AtmosphericPressure = (double)m.AtmosphericPressure,
+                SurfaceTemperature = m.SurfaceTemperature,
+                Analysis = m.Analysis,
+                ImageUrl = m.ImageUrl,
+                PlanetName = m.Planet.Name
             })
                 .ToList();
     }

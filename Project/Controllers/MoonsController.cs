@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Project.Infrastructure;
 using Project.Models.Moons;
@@ -11,12 +12,16 @@ namespace Project.Controllers
     {
         private readonly IMoonService moons;
         private readonly ICreatorService creators;
+        private readonly IMapper mapper;
+
         public MoonsController(
             IMoonService moons,
-            ICreatorService creators)
+            ICreatorService creators, 
+            IMapper mapper)
         {
             this.moons = moons;
             this.creators = creators;
+            this.mapper = mapper;
         }
 
         public IActionResult All([FromQuery] AllMoonsQueryModel query)
@@ -78,7 +83,8 @@ namespace Project.Controllers
                 (int)moon.SurfaceTemperature,
                 moon.Analysis,
                 moon.ImageUrl,
-                moon.PlanetId);
+                moon.PlanetId,
+                creatorId);
 
             return RedirectToAction(nameof(All));
         }
@@ -100,19 +106,11 @@ namespace Project.Controllers
                 return Unauthorized();
             }
 
-            return View(new MoonFormModel
-            {
-                Name = moon.Name,
-                OrbitalDistance = moon.OrbitalDistance,
-                OrbitalPeriod = moon.OrbitalPeriod,
-                Radius = moon.Radius,
-                AtmosphericPressure = moon.AtmosphericPressure,
-                SurfaceTemperature = moon.SurfaceTemperature,
-                Analysis = moon.Analysis,
-                ImageUrl = moon.ImageUrl,
-                PlanetId = moon.PlanetId,
-                Planets = this.moons.AllPlanets()
-            });
+            var moonForm = this.mapper.Map<MoonFormModel>(moon);
+
+            moonForm.Planets = this.moons.AllPlanets();
+
+            return View(moonForm);
         }
 
         [HttpPost]
@@ -136,6 +134,11 @@ namespace Project.Controllers
                 moon.Planets = this.moons.AllPlanets();
 
                 return View(moon);
+            }
+
+            if (!this.moons.IsByCreator(id, creatorId) && !User.IsAdmin())
+            {
+                return BadRequest();
             }
 
             this.moons.Edit(
