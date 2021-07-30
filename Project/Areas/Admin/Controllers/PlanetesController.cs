@@ -2,7 +2,7 @@
 
 namespace Project.Areas.Admin.Controllers
 {
-    public class CarsController : AdminController
+    public class PlanetesController : AdminController
     {
         public IActionResult Index() => View();
     }

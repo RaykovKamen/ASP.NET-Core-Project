@@ -58,27 +58,13 @@ namespace Project.Data
                 .HasOne(m => m.Planet)
                 .WithMany(p => p.Minerals)
                 .HasForeignKey(m => m.PlanetId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            builder
-                .Entity<Mineral>()
-                .HasOne(m => m.Moon)
-                .WithMany(m => m.Mineral)
-                .HasForeignKey(m => m.MoonId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Restrict);;
 
             builder
                 .Entity<Satellite>()
                 .HasOne(s => s.Planet)
                 .WithMany(p => p.Satellites)
                 .HasForeignKey(s => s.PlanetId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            builder
-                .Entity<Satellite>()
-                .HasOne(s => s.Moon)
-                .WithMany(m => m.Satellites)
-                .HasForeignKey(s => s.MoonId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder

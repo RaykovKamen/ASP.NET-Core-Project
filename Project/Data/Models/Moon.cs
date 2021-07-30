@@ -42,9 +42,5 @@ namespace Project.Data.Models
         public Planet Planet { get; init; }
 
         public Creator Creator { get; init; }
-
-        public IEnumerable<Satellite> Satellites { get; init; } = new List<Satellite>();
-
-        public IEnumerable<Mineral> Mineral { get; init; } = new List<Mineral>();
     }
 }

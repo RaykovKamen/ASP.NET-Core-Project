@@ -21,9 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\Minerals\" />
     <Folder Include="Models\Satellites\" />
-    <Folder Include="Views\Minerals\" />
     <Folder Include="Views\Satellites\" />
   </ItemGroup>
 

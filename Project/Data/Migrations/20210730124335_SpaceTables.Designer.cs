@@ -10,7 +10,7 @@ using Project.Data;
 namespace Project.Migrations
 {
     [DbContext(typeof(ProjectDbContext))]
-    [Migration("20210729150646_SpaceTables")]
+    [Migration("20210730124335_SpaceTables")]
     partial class SpaceTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -187,63 +187,58 @@ namespace Project.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Aluminum")
+                    b.Property<int?>("Aluminum")
                         .HasColumnType("int");
 
-                    b.Property<int>("Beryllium")
+                    b.Property<int?>("Beryllium")
                         .HasColumnType("int");
 
-                    b.Property<int>("Cadmium")
+                    b.Property<int?>("Cadmium")
                         .HasColumnType("int");
 
-                    b.Property<int>("Copper")
+                    b.Property<int?>("Copper")
                         .HasColumnType("int");
 
-                    b.Property<int>("Fluorite")
+                    b.Property<int?>("Fluorite")
                         .HasColumnType("int");
 
-                    b.Property<int>("Graphite")
+                    b.Property<int?>("Graphite")
                         .HasColumnType("int");
 
-                    b.Property<int>("Iridium")
+                    b.Property<int?>("Iridium")
                         .HasColumnType("int");
 
-                    b.Property<int>("Iron")
+                    b.Property<int?>("Iron")
                         .HasColumnType("int");
 
-                    b.Property<int>("Lithium")
+                    b.Property<int?>("Lithium")
                         .HasColumnType("int");
 
-                    b.Property<int>("Magnesium")
+                    b.Property<int?>("Magnesium")
                         .HasColumnType("int");
 
-                    b.Property<int>("MoonId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Nickel")
+                    b.Property<int?>("Nickel")
                         .HasColumnType("int");
 
                     b.Property<int>("PlanetId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Platinum")
+                    b.Property<int?>("Platinum")
                         .HasColumnType("int");
 
-                    b.Property<int>("Silicon")
+                    b.Property<int?>("Silicon")
                         .HasColumnType("int");
 
-                    b.Property<int>("Titanium")
+                    b.Property<int?>("Titanium")
                         .HasColumnType("int");
 
-                    b.Property<int>("Uranium")
+                    b.Property<int?>("Uranium")
                         .HasColumnType("int");
 
-                    b.Property<int>("Vanadium")
+                    b.Property<int?>("Vanadium")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("MoonId");
 
                     b.HasIndex("PlanetId");
 
@@ -376,9 +371,6 @@ namespace Project.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("MoonId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(40)
@@ -388,8 +380,6 @@ namespace Project.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("MoonId");
 
                     b.HasIndex("PlanetId");
 
@@ -527,19 +517,11 @@ namespace Project.Migrations
 
             modelBuilder.Entity("Project.Data.Models.Mineral", b =>
                 {
-                    b.HasOne("Project.Data.Models.Moon", "Moon")
-                        .WithMany("Mineral")
-                        .HasForeignKey("MoonId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("Project.Data.Models.Planet", "Planet")
                         .WithMany("Minerals")
                         .HasForeignKey("PlanetId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.Navigation("Moon");
 
                     b.Navigation("Planet");
                 });
@@ -584,19 +566,11 @@ namespace Project.Migrations
 
             modelBuilder.Entity("Project.Data.Models.Satellite", b =>
                 {
-                    b.HasOne("Project.Data.Models.Moon", "Moon")
-                        .WithMany("Satellites")
-                        .HasForeignKey("MoonId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("Project.Data.Models.Planet", "Planet")
                         .WithMany("Satellites")
                         .HasForeignKey("PlanetId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.Navigation("Moon");
 
                     b.Navigation("Planet");
                 });
@@ -606,13 +580,6 @@ namespace Project.Migrations
                     b.Navigation("Moons");
 
                     b.Navigation("Planets");
-                });
-
-            modelBuilder.Entity("Project.Data.Models.Moon", b =>
-                {
-                    b.Navigation("Mineral");
-
-                    b.Navigation("Satellites");
                 });
 
             modelBuilder.Entity("Project.Data.Models.Planet", b =>

@@ -8,5 +8,6 @@
         public const int PasswordMinLength = 6;
         public const int AnalysisMaxLength = 1000;
         public const int AnalysisMinLength = 10;
+        public const int MineralsMaxLength = 100;
     }
 }

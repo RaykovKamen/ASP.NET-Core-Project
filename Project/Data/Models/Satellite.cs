@@ -14,10 +14,6 @@ namespace Project.Data.Models
 
         public int PlanetId { get; set; }
 
-        public int MoonId { get; set; }
-
         public Planet Planet { get; init; }
-
-        public Moon Moon { get; init; }
     }
 }
