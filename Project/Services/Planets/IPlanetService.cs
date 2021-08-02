@@ -10,6 +10,8 @@ namespace Project.Services.Planets
             int currentPage,
             int planetsPerPage);
 
+        IEnumerable<LatestPlanetServiceModel> Latest();
+
         PlanetDetailsServiceModel Details(int planetId);
 
         int Create(
@@ -18,7 +20,7 @@ namespace Project.Services.Planets
             double orbitalPeriod,
             int radius,
             double atmosphericPressure,
-            int surfaceTemperature,
+            int? surfaceTemperature,
             string analysis,
             string imageUrl,
             int planetarySystemId,
@@ -31,7 +33,7 @@ namespace Project.Services.Planets
             double orbitalPeriod,
             int radius,
             double atmosphericPressure,
-            int surfaceTemperature,
+            int? surfaceTemperature,
             string analysis,
             string imageUrl,
             int planetarySystemId);

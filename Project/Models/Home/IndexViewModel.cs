@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Project.Services.PlanetarySystems.Models;
+using Project.Services.Planets.Models;
+using System.Collections.Generic;
 
 namespace Project.Models.Home
 {
@@ -10,8 +12,8 @@ namespace Project.Models.Home
 
         public int TotalMisions { get; init; }
 
-        public List<PlanetIndexViewModel> Planets { get; init; }
+        public IList<LatestPlanetServiceModel> Planets { get; init; }
 
-        public List<PlanetarySystemIndexViewModel> PlanetarySystems { get; init; }
+        public IList<LatestPlanetarySystemServiceModel> PlanetarySystems { get; init; }
     }
 }

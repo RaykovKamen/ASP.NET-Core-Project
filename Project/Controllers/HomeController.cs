@@ -1,44 +1,36 @@
-﻿using AutoMapper;
-using AutoMapper.QueryableExtensions;
-using Microsoft.AspNetCore.Mvc;
-using Project.Data;
-using Project.Models;
+﻿using Microsoft.AspNetCore.Mvc;
 using Project.Models.Home;
+using Project.Services.PlanetarySystems;
+using Project.Services.Planets;
 using Project.Services.Statistics;
-using System.Diagnostics;
 using System.Linq;
 
 namespace Project.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IPlanetService planets;
+        private readonly IPlanetarySystemService planetarySystems;
         private readonly IStatisticsService statistics;
-        private readonly IConfigurationProvider mapper;
-        private readonly ProjectDbContext data;
 
         public HomeController(
             IStatisticsService statistics,
-            IMapper mapper,
-            ProjectDbContext data)
+            IPlanetService planets,
+            IPlanetarySystemService planetarySystems)
         {
             this.statistics = statistics;
-            this.mapper = mapper.ConfigurationProvider;
-            this.data = data;
+            this.planets = planets;
+            this.planetarySystems = planetarySystems;
         }
 
         public IActionResult Index()
         {
-            var planetarySystems = this.data
-                .PlanetarySystems
-                .OrderByDescending(p => p.Id)
-                .ProjectTo<PlanetarySystemIndexViewModel>(this.mapper)
+            var latestPlanetarySystems = this.planetarySystems
+                .Latest()
                 .ToList();
 
-            var planets = this.data
-                .Planets
-                .OrderByDescending(p => p.Id)
-                .ProjectTo<PlanetIndexViewModel>(this.mapper)
-                .Take(3)
+            var latestPlanets = this.planets
+                .Latest()
                 .ToList();
 
             var totalStatistics = this.statistics.Total();
@@ -47,12 +39,11 @@ namespace Project.Controllers
             {            
                 TotalPlanets = totalStatistics.TotalPlanets,
                 TotalUsers = totalStatistics.TotalUsers,
-                Planets = planets,
-                PlanetarySystems = planetarySystems,
+                Planets = latestPlanets,
+                PlanetarySystems = latestPlanetarySystems
             });
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error() => View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        public IActionResult Error() => View();
     }
 }

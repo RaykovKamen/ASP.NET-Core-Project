@@ -87,7 +87,7 @@ namespace Project.Controllers
                 (double)planet.OrbitalPeriod,
                 (int)planet.Radius,
                 (double)planet.AtmosphericPressure,
-                (int)planet.SurfaceTemperature,
+                planet.SurfaceTemperature,
                 planet.Analysis,
                 planet.ImageUrl,
                 planet.PlanetarySystemId,
@@ -155,7 +155,7 @@ namespace Project.Controllers
                 (double)planet.OrbitalPeriod,
                 (int)planet.Radius,
                 (double)planet.AtmosphericPressure,
-                (int)planet.SurfaceTemperature,
+                planet.SurfaceTemperature,
                 planet.Analysis,
                 planet.ImageUrl,
                 planet.PlanetarySystemId);

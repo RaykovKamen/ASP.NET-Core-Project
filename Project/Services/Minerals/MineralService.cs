@@ -15,7 +15,7 @@ namespace Project.Services.Minerals
             this.data = data;
         }
 
-        public int Create(int aluminum, int beryllium, int cadmium, int copper, int fluorite, int graphite, int iridium, int iron, int lithium, int magnesium, int nickel, int platinum, int silicon, int titanium, int uranium, int vanadium, int planetId)
+        public int Create(int? aluminum, int? beryllium, int? cadmium, int? copper, int? fluorite, int? graphite, int? iridium, int? iron, int? lithium, int? magnesium, int? nickel, int? platinum, int? silicon, int? titanium, int? uranium, int? vanadium, int planetId)
         {
             var mineralData = new Mineral
             {

@@ -48,6 +48,14 @@ namespace Project.Services.Planets
             };
         }
 
+        public IEnumerable<LatestPlanetServiceModel> Latest()
+        => this.data
+            .Planets
+            .OrderByDescending(p => p.Id)
+            .ProjectTo<LatestPlanetServiceModel>(this.mapper)
+            .Take(3)
+            .ToList();
+
         public PlanetDetailsServiceModel Details(int id)
             => this.data
             .Planets
@@ -55,7 +63,7 @@ namespace Project.Services.Planets
             .ProjectTo<PlanetDetailsServiceModel>(this.mapper)
             .FirstOrDefault();
 
-        public int Create(string name, double orbitalDistance, double orbitalPeriod, int radius, double atmosphericPressure, int surfaceTemperature, string analysis, string imageUrl, int planetarySystemId, int creatorId)
+        public int Create(string name, double orbitalDistance, double orbitalPeriod, int radius, double atmosphericPressure, int? surfaceTemperature, string analysis, string imageUrl, int planetarySystemId, int creatorId)
         {
             var planetData = new Planet
             {
@@ -77,7 +85,7 @@ namespace Project.Services.Planets
             return planetData.Id;
         }
 
-        public bool Edit(int id, string name, double orbitalDistance, double orbitalPeriod, int radius, double atmosphericPressure, int surfaceTemperature, string analysis, string imageUrl, int planetarySystemId)
+        public bool Edit(int id, string name, double orbitalDistance, double orbitalPeriod, int radius, double atmosphericPressure, int? surfaceTemperature, string analysis, string imageUrl, int planetarySystemId)
         {
             var planetData = this.data.Planets.Find(id);
 
@@ -141,6 +149,6 @@ namespace Project.Services.Planets
                 ImageUrl = p.ImageUrl,
                 PlanetarySystemName = p.PlanetarySystem.Name
             })
-                .ToList();
+                .ToList();    
     }
 }

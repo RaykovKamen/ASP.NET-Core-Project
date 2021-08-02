@@ -58,22 +58,22 @@ namespace Project.Controllers
             }
 
             this.minerals.Create(
-                (int)mineral.Aluminum,
-                (int)mineral.Beryllium,
-                (int)mineral.Cadmium,
-                (int)mineral.Copper,
-                (int)mineral.Fluorite,
-                (int)mineral.Graphite,
-                (int)mineral.Iridium,
-                (int)mineral.Iron,
-                (int)mineral.Lithium,
-                (int)mineral.Magnesium,
-                (int)mineral.Nickel,
-                (int)mineral.Platinum,
-                (int)mineral.Silicon,
-                (int)mineral.Titanium,
-                (int)mineral.Uranium,
-                (int)mineral.Vanadium,
+                mineral.Aluminum,
+                mineral.Beryllium,
+                mineral.Cadmium,
+                mineral.Copper,
+                mineral.Fluorite,
+                mineral.Graphite,
+                mineral.Iridium,
+                mineral.Iron,
+                mineral.Lithium,
+                mineral.Magnesium,
+                mineral.Nickel,
+                mineral.Platinum,
+                mineral.Silicon,
+                mineral.Titanium,
+                mineral.Uranium,
+                mineral.Vanadium,
                 mineral.PlanetId
                 );
 

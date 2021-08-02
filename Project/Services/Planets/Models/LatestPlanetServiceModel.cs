@@ -1,6 +1,6 @@
-﻿namespace Project.Models.Home
+﻿namespace Project.Services.Planets.Models
 {
-    public class PlanetIndexViewModel
+    public class LatestPlanetServiceModel
     {
         public int Id { get; set; }
 
