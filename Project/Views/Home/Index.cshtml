@@ -38,11 +38,11 @@
             <div class="carousel-item @(i == 0 ? "active" : string.Empty)">
                 <img class="d-block w-100" src="@planet.ImageUrl" alt="@planet.Name">
                 <div class="carousel-caption d-none d-md-block">
-                    <h5><a class="btn btn-primary" asp-controller="Planets" asp-action="Details" asp-route-id="@planet.Id">@planet.Name</a></h5>
+                    <h5><a asp-controller="Planets" asp-action="Details" asp-route-id="@planet.Id" asp-route-information="@planet.GetInformation()" class="btn btn-primary">View</a></h5>
                 </div>
             </div>
-        }
-    </div>
+         }
+        </div>
     <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="sr-only">Previous</span>

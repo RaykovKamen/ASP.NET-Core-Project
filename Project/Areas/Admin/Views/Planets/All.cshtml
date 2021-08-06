@@ -1,0 +1,30 @@
+﻿@model IEnumerable<PlanetServiceModel>
+
+@{ ViewBag.Title = "Planets Administration"; }
+
+<h1>All Planets</h1>
+
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Planetary System</th>
+            <th scope="col">Analysis</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var planet in Model)
+        {
+        <tr>
+            <td scope="col">@planet.Name</td>
+            <td scope="col">@planet.PlanetarySystemName</td>
+            <td scope="col">@planet.Analysis</td>
+            <td scope="col">
+                <a asp-area="" asp-controller="Planets" asp-action="Details" asp-route-id="@planet.Id" asp-route-information="@planet.GetInformation()" class="btn btn-primary float-right ml-3">View</a>
+                <a asp-area="" asp-controller="Planets" asp-action="Edit" asp-route-id="@planet.Id" class="btn btn-warning float-right ml-3">Eddit</a>
+                <a asp-area="" asp-controller="Planets" asp-action="Delete" asp-route-id="@planet.Id" class="btn btn-danger float-right ml-3">Delete</a>
+            </td>
+        </tr>
+         }
+    </tbody>
+</table>

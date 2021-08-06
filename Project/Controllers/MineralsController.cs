@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Project.Infrastructure;
+using Project.Infrastructure.Extensions;
 using Project.Models.Minerals;
 using Project.Services.Creators;
 using Project.Services.Minerals;

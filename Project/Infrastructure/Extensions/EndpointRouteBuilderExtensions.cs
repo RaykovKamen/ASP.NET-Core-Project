@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 
-namespace Project.Infrastructure
+namespace Project.Infrastructure.Extensions
 {
     public static class EndpointRouteBuilderExtensions
     {

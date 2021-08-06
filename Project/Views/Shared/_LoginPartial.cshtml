@@ -18,10 +18,19 @@
                 <a class="nav-link text-dark" asp-area="" asp-controller="Planets" asp-action="Mine">My Planets</a>
             </li>
         }
-        else if(!userIsAdmin)
+        else if (!userIsAdmin)
         {
             <li class="nav-item">
                 <a class="nav-link text-dark" asp-area="" asp-controller="Creators" asp-action="Become">Become Creator</a>
+            </li>
+        }
+        else if (userIsAdmin)
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="Admin" asp-controller="Planets" asp-action="All">Planet Administration</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="Admin" asp-controller="Moons" asp-action="All">Moon Administration</a>
             </li>
         }
         <li class="nav-item">

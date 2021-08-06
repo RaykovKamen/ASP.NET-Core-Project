@@ -1,0 +1,29 @@
+﻿@model IEnumerable<MoonServiceModel>
+
+@{ ViewBag.Title = "Moons Administration"; }
+
+<h1>All Planets</h1>
+
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Planet</th>
+            <th scope="col">Analysis</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var moon in Model)
+        {
+<tr>
+    <td scope="col">@moon.Name</td>
+    <td scope="col">@moon.PlanetName</td>
+    <td scope="col">@moon.Analysis</td>
+    <td scope="col">
+        <a asp-area="" asp-controller="Moons" asp-action="Details" asp-route-id="@moon.Id" asp-route-information="@moon.GetInformation()" class="btn btn-primary float-right ml-3">View</a>
+        <a asp-area="" asp-controller="Moons" asp-action="Edit" asp-route-id="@moon.Id" class="btn btn-warning float-right ml-3">Eddit</a>
+        <a asp-area="" asp-controller="Moons" asp-action="Delete" asp-route-id="@moon.Id" class="btn btn-danger float-right ml-3">Delete</a>
+    </td>
+</tr>}
+    </tbody>
+</table>

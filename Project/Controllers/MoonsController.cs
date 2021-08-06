@@ -1,10 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Project.Infrastructure;
+using Project.Infrastructure.Extensions;
 using Project.Models.Moons;
 using Project.Services.Creators;
 using Project.Services.Moons;
+using static Project.WebConstants;
 
 namespace Project.Controllers
 {
@@ -35,6 +36,18 @@ namespace Project.Controllers
             query.Moons = queryResult.Moons;
 
             return View(query);
+        }
+
+        public IActionResult Details(int id, string information)
+        {
+            var moon = this.moons.Details(id);
+
+            if (information != moon.GetInformation())
+            {
+                return BadRequest();
+            }
+
+            return View(moon);
         }
 
         [Authorize]
@@ -74,7 +87,7 @@ namespace Project.Controllers
                 return View(moon);
             }
 
-            this.moons.Create(
+            var moonId = this.moons.Create(
                 moon.Name,
                 (double)moon.OrbitalDistance,
                 (double)moon.OrbitalPeriod,
@@ -86,7 +99,9 @@ namespace Project.Controllers
                 moon.PlanetId,
                 creatorId);
 
-            return RedirectToAction(nameof(All));
+            TempData[GlobalMessageKey] = "Your moon was created!";
+
+            return RedirectToAction(nameof(Details), new { id = moonId, information = moon.GetInformation() });
         }
 
         [Authorize]
@@ -153,7 +168,9 @@ namespace Project.Controllers
                 moon.ImageUrl,
                 moon.PlanetId);
 
-            return RedirectToAction(nameof(All));
+            TempData[GlobalMessageKey] = $"Your moon was edited!";
+
+            return RedirectToAction(nameof(Details), new { id, information = moon.GetInformation() });
         }
     }
 }

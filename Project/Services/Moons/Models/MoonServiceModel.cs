@@ -1,6 +1,6 @@
 ﻿namespace Project.Services.Moons.Models
 {
-    public class MoonServiceModel
+    public class MoonServiceModel : IMoonModel
     {
         public int Id { get; set; }
 

@@ -16,7 +16,7 @@ namespace Project.Test.Controllers.Api
             Assert.NotNull(result);
             Assert.Equal(5, result.TotalPlanets);
             Assert.Equal(10, result.TotalUsers);
-            Assert.Equal(15, result.TotalMisions);
+            Assert.Equal(15, result.TotalMissions);
         }
     }
 }

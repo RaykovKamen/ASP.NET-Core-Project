@@ -20,9 +20,9 @@ namespace Project.Services.Moons
         }
 
         public MoonQueryServiceModel All(
-            string searchTerm,
-            int currentPage,
-            int moonsPerPage)
+            string searchTerm = null,
+            int currentPage = 1,
+            int moonsPerPage = int.MaxValue)
         {
             var moonsQuery = this.data.Moons.AsQueryable();
 
@@ -114,11 +114,7 @@ namespace Project.Services.Moons
         public IEnumerable<MoonPlanetServiceModel> AllPlanets()
             => this.data
             .Planets
-            .Select(p => new MoonPlanetServiceModel
-            {
-                Id = p.Id,
-                Name = p.Name
-            })
+            .ProjectTo<MoonPlanetServiceModel>(this.mapper)
             .ToList();
 
         public bool PlanetExists(int planetId)
@@ -126,21 +122,9 @@ namespace Project.Services.Moons
             .Planets
             .Any(p => p.Id == planetId);
 
-        private static IEnumerable<MoonServiceModel> GetMoons(IQueryable<Moon> moonQuery)
+        private IEnumerable<MoonServiceModel> GetMoons(IQueryable<Moon> moonQuery)
             => moonQuery
-            .Select(m => new MoonServiceModel
-            {
-                Id = m.Id,
-                Name = m.Name,
-                OrbitalDistance = (double)m.OrbitalDistance,
-                OrbitalPeriod = (double)m.OrbitalPeriod,
-                Radius = m.Radius,
-                AtmosphericPressure = (double)m.AtmosphericPressure,
-                SurfaceTemperature = m.SurfaceTemperature,
-                Analysis = m.Analysis,
-                ImageUrl = m.ImageUrl,
-                PlanetName = m.Planet.Name
-            })
+                .ProjectTo<MoonServiceModel>(this.mapper)
                 .ToList();
     }
 }

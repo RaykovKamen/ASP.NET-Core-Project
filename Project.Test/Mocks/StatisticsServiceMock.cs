@@ -17,7 +17,7 @@ namespace Project.Test.Mocks
                     {
                         TotalPlanets = 5,
                         TotalUsers = 10,
-                        TotalMisions = 15
+                        TotalMissions = 15
                     });
 
                 return statisticsServiceMock.Object;

@@ -20,9 +20,9 @@ namespace Project.Services.Planets
         }
 
         public PlanetQueryServiceModel All(
-            string searchTerm,
-            int currentPage,
-            int planetsPerPage)
+            string searchTerm = null,
+            int currentPage = 1,
+            int planetsPerPage = int.MaxValue)
         {
             var planetsQuery = this.data.Planets.AsQueryable();
 
@@ -75,7 +75,7 @@ namespace Project.Services.Planets
                 SurfaceTemperature = surfaceTemperature,
                 Analysis = analysis,
                 ImageUrl = imageUrl,
-                PlanetarySystemId = planetarySystemId,
+                PlanetarySystemId = planetarySystemId,               
                 CreatorId = creatorId
             };
 
@@ -122,11 +122,7 @@ namespace Project.Services.Planets
         public IEnumerable<PlanetarySystemServiceModel> AllPlanetarySystems()
             => this.data
             .PlanetarySystems
-            .Select(p => new PlanetarySystemServiceModel
-            {
-                Id = p.Id,
-                Name = p.Name
-            })
+            .ProjectTo<PlanetarySystemServiceModel>(this.mapper)
             .ToList();
 
         public bool PlanetarySystemExists(int planetartySystemId)
@@ -134,21 +130,9 @@ namespace Project.Services.Planets
             .PlanetarySystems
             .Any(p => p.Id == planetartySystemId);
 
-        private static IEnumerable<PlanetServiceModel> GetPlanets(IQueryable<Planet> planetQuery)
+        private IEnumerable<PlanetServiceModel> GetPlanets(IQueryable<Planet> planetQuery)
             => planetQuery
-            .Select(p => new PlanetServiceModel
-            {
-                Id = p.Id,
-                Name = p.Name,
-                OrbitalDistance = (double)p.OrbitalDistance,
-                OrbitalPeriod = (double)p.OrbitalPeriod,
-                Radius = p.Radius,
-                AtmosphericPressure = (double)p.AtmosphericPressure,
-                SurfaceTemperature = p.SurfaceTemperature,
-                Analysis = p.Analysis,
-                ImageUrl = p.ImageUrl,
-                PlanetarySystemName = p.PlanetarySystem.Name
-            })
+            .ProjectTo<PlanetServiceModel>(this.mapper)
                 .ToList();    
     }
 }

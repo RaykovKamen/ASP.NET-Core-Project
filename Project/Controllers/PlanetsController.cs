@@ -1,21 +1,23 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Project.Infrastructure;
+using Project.Infrastructure.Extensions;
 using Project.Models.Planets;
 using Project.Services.Creators;
 using Project.Services.Planets;
+using static Project.WebConstants;
 
 namespace Project.Controllers
 {
     public class PlanetsController : Controller
     {
+
         private readonly IPlanetService planets;
         private readonly ICreatorService creators;
         private readonly IMapper mapper;
         public PlanetsController(
             IPlanetService planets,
-            ICreatorService creators, 
+            ICreatorService creators,
             IMapper mapper)
         {
             this.planets = planets;
@@ -43,7 +45,19 @@ namespace Project.Controllers
 
             return View(myPlanets);
         }
- 
+
+        public IActionResult Details(int id, string information)
+        {
+            var planet = this.planets.Details(id);
+
+            if (information != planet.GetInformation())
+            {
+                return BadRequest();
+            }
+
+            return View(planet);
+        }
+
         [Authorize]
         public IActionResult Add()
         {
@@ -81,7 +95,7 @@ namespace Project.Controllers
                 return View(planet);
             }
 
-            this.planets.Create(
+            var planetId = this.planets.Create(
                 planet.Name,
                 (double)planet.OrbitalDistance,
                 (double)planet.OrbitalPeriod,
@@ -93,7 +107,9 @@ namespace Project.Controllers
                 planet.PlanetarySystemId,
                 creatorId);
 
-            return RedirectToAction(nameof(All));
+            TempData[GlobalMessageKey] = "Your planet was created!";
+
+            return RedirectToAction(nameof(Details), new { id = planetId, information = planet.GetInformation() });
         }
 
         [Authorize]
@@ -160,7 +176,9 @@ namespace Project.Controllers
                 planet.ImageUrl,
                 planet.PlanetarySystemId);
 
-            return RedirectToAction(nameof(All));
+            TempData[GlobalMessageKey] = $"Your planet was edited!";
+
+            return RedirectToAction(nameof(Details), new { id, information = planet.GetInformation() });
         }
     }
 }

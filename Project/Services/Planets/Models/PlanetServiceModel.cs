@@ -1,6 +1,6 @@
 ﻿namespace Project.Services.Planets.Models
 {
-    public class PlanetServiceModel
+    public class PlanetServiceModel : IPlanetModel
     {
         public int Id { get; set; }
 

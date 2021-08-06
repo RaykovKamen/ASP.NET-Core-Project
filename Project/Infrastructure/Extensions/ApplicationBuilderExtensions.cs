@@ -7,7 +7,7 @@ using Project.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 
-namespace Project.Infrastructure
+namespace Project.Infrastructure.Extensions
 {
     using static Project.Areas.Admin.AdminConstants;
 

@@ -6,9 +6,9 @@ namespace Project.Services.Planets
     public interface IPlanetService
     {
         PlanetQueryServiceModel All(
-            string searchTerm,
-            int currentPage,
-            int planetsPerPage);
+            string searchTerm = null,
+            int currentPage = 1,
+            int planetsPerPage = int.MaxValue);
 
         IEnumerable<LatestPlanetServiceModel> Latest();
 

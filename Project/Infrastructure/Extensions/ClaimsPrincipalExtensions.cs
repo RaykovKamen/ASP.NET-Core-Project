@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 
-namespace Project.Infrastructure
+namespace Project.Infrastructure.Extensions
 {
     using static Project.Areas.Admin.AdminConstants;
 

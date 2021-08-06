@@ -7,7 +7,7 @@ namespace Project.Models.Planets
 {
     using static DataConstants;
 
-    public class PlanetFormModel
+    public class PlanetFormModel : IPlanetModel
     {
         [Required]
         [StringLength(NameMaxLength, MinimumLength = NameMinLength)]

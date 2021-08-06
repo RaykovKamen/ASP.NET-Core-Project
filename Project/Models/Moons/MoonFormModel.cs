@@ -7,7 +7,7 @@ namespace Project.Models.Moons
 {
     using static DataConstants;
 
-    public class MoonFormModel
+    public class MoonFormModel : IMoonModel
     {
         [Required]
         [StringLength(NameMaxLength, MinimumLength = NameMinLength)]

@@ -2,9 +2,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Project.Data;
 using Project.Data.Models;
-using Project.Infrastructure;
+using Project.Infrastructure.Extensions;
 using Project.Models.Creators;
 using System.Linq;
+using static Project.WebConstants;
 
 namespace Project.Controllers
 {
@@ -46,6 +47,8 @@ namespace Project.Controllers
 
             this.data.Creators.Add(cratorData);
             this.data.SaveChanges();
+
+            TempData[GlobalMessageKey] = "Thank you for becomming a creator!";
 
             return RedirectToAction("All", "Planets");
         }

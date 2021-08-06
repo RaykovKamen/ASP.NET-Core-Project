@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Project.Data;
 using Project.Data.Models;
-using Project.Infrastructure;
+using Project.Infrastructure.Extensions;
 using Project.Services.Creators;
 using Project.Services.Minerals;
 using Project.Services.Moons;
@@ -85,6 +85,17 @@ namespace Project
                 .UseEndpoints(endpoints =>
                 {
                     endpoints.MapDefaultAreaRoute();
+
+                    endpoints.MapControllerRoute(
+                        name: "Planet Details",
+                        pattern: "/Planets/Details/{id}/{information}",
+                        defaults: new { controller = "Planets", action = "Details" });
+
+                    endpoints.MapControllerRoute(
+                        name: "Moon Details",
+                        pattern: "/Moons/Details/{id}/{information}",
+                        defaults: new { controller = "Moons", action = "Details" });
+
                     endpoints.MapDefaultControllerRoute();
                     endpoints.MapRazorPages();
                 });     

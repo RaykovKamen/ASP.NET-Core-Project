@@ -12,13 +12,22 @@ namespace Project.Infrastructure
     {
         public MappingProfile()
         {
+            this.CreateMap<PlanetarySystem, PlanetarySystemServiceModel>();
+            this.CreateMap<Planet, MoonPlanetServiceModel>();
+
             this.CreateMap<PlanetarySystem, LatestPlanetarySystemServiceModel>();
             this.CreateMap<Planet, LatestPlanetServiceModel>();
             this.CreateMap<Planet, LatestPlanetarySystemServiceModel>();
             this.CreateMap<PlanetDetailsServiceModel, PlanetFormModel>();
             this.CreateMap<MoonDetailsServiceModel, MoonFormModel>();
 
-              this.CreateMap<Planet, PlanetDetailsServiceModel>()
+            this.CreateMap<Planet, PlanetServiceModel>()
+                .ForMember(p => p.PlanetarySystemName, cfg => cfg.MapFrom(p => p.PlanetarySystem.Name));
+
+            this.CreateMap<Moon, MoonServiceModel>()
+                .ForMember(p => p.PlanetName, cfg => cfg.MapFrom(p => p.Planet.Name));
+
+            this.CreateMap<Planet, PlanetDetailsServiceModel>()
                 .ForMember(p => p.UserId, cfg => cfg.MapFrom(p => p.Creator.UserId));
 
             this.CreateMap<Moon, MoonDetailsServiceModel>()

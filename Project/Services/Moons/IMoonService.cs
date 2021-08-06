@@ -6,9 +6,9 @@ namespace Project.Services.Moons
     public interface IMoonService
     {
         MoonQueryServiceModel All(
-            string searchTerm,
-            int currentPage,
-            int moonsPerPage);
+            string searchTerm = null,
+            int currentPage = 1,
+            int moonsPerPage = int.MaxValue);
 
         MoonDetailsServiceModel Details(int moonId);
 
