@@ -156,7 +156,7 @@ namespace Project.Controllers
                 return BadRequest();
             }
 
-            this.moons.Edit(
+           var edited = this.moons.Edit(
                 id,
                 moon.Name,
                 (double)moon.OrbitalDistance,
@@ -167,6 +167,11 @@ namespace Project.Controllers
                 moon.Analysis,
                 moon.ImageUrl,
                 moon.PlanetId);
+
+            if (!edited)
+            {
+                return BadRequest();
+            }
 
             TempData[GlobalMessageKey] = $"Your moon was edited!";
 

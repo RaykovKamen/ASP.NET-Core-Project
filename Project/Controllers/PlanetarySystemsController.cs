@@ -56,7 +56,7 @@ namespace Project.Controllers
 
             this.planetarySystems.Create(planetarySystem.Name);
 
-            return Redirect("/Planets/Add");
+            return Redirect("/Home");
         }
     }
 }

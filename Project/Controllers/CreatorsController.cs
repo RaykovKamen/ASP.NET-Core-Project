@@ -50,7 +50,7 @@ namespace Project.Controllers
 
             TempData[GlobalMessageKey] = "Thank you for becomming a creator!";
 
-            return RedirectToAction("All", "Planets");
+            return RedirectToAction("/Home");
         }
     }
 }

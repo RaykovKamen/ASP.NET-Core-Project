@@ -42,7 +42,7 @@ namespace Project.Controllers
                    .ToList();
 
                 var cacheOptions = new MemoryCacheEntryOptions()
-                    .SetAbsoluteExpiration(TimeSpan.FromMinutes(15));
+                    .SetAbsoluteExpiration(TimeSpan.FromMilliseconds(15));
 
                 this.cache.Set(latestPlanetsCacheKey, latestPlanets, cacheOptions);
             }
@@ -54,13 +54,13 @@ namespace Project.Controllers
                    .ToList();
 
                 var cacheOptions = new MemoryCacheEntryOptions()
-                    .SetAbsoluteExpiration(TimeSpan.FromMinutes(15));
+                    .SetAbsoluteExpiration(TimeSpan.FromMilliseconds(15));
 
                 this.cache.Set(latestPlanetarySystemsCacheKey, latestPlanetarySystems, cacheOptions);
             }
 
             return View(new IndexViewModel
-            {            
+            {
                 Planets = latestPlanets,
                 PlanetarySystems = latestPlanetarySystems
             });

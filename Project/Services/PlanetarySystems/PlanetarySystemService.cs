@@ -34,7 +34,7 @@ namespace Project.Services.PlanetarySystems
 
         public IEnumerable<LatestPlanetarySystemServiceModel> Latest()
         => this.data
-            .Planets
+            .PlanetarySystems
             .OrderByDescending(p => p.Id)
             .ProjectTo<LatestPlanetarySystemServiceModel>(this.mapper)
             .ToList();

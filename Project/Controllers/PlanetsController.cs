@@ -164,7 +164,7 @@ namespace Project.Controllers
                 return BadRequest();
             }
 
-            this.planets.Edit(
+            var edited = this.planets.Edit(
                 id,
                 planet.Name,
                 (double)planet.OrbitalDistance,
@@ -175,6 +175,11 @@ namespace Project.Controllers
                 planet.Analysis,
                 planet.ImageUrl,
                 planet.PlanetarySystemId);
+
+            if (!edited)
+            {
+                return BadRequest();
+            }
 
             TempData[GlobalMessageKey] = $"Your planet was edited!";
 
