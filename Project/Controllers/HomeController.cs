@@ -11,6 +11,8 @@ using System.Linq;
 
 namespace Project.Controllers
 {
+    using static WebConstants.Cache;
+
     public class HomeController : Controller
     {
         private readonly IPlanetService planets;
@@ -29,11 +31,8 @@ namespace Project.Controllers
 
         public IActionResult Index()
         {
-            const string latestPlanetsCacheKey = "LatestPlanetsCacheKey";
-            const string latestPlanetarySystemsCacheKey = "LatestPlanetarySystemsCacheKey";
-
-            var latestPlanets = this.cache.Get<List<LatestPlanetServiceModel>>(latestPlanetsCacheKey);
-            var latestPlanetarySystems = this.cache.Get<List<LatestPlanetarySystemServiceModel>>(latestPlanetarySystemsCacheKey);
+            var latestPlanets = this.cache.Get<List<LatestPlanetServiceModel>>(LatestPlanetsCacheKey);
+            var latestPlanetarySystems = this.cache.Get<List<LatestPlanetarySystemServiceModel>>(LatestPlanetarySystemsCacheKey);
 
             if (latestPlanets == null)
             {
@@ -44,7 +43,7 @@ namespace Project.Controllers
                 var cacheOptions = new MemoryCacheEntryOptions()
                     .SetAbsoluteExpiration(TimeSpan.FromMilliseconds(15));
 
-                this.cache.Set(latestPlanetsCacheKey, latestPlanets, cacheOptions);
+                this.cache.Set(LatestPlanetsCacheKey, latestPlanets, cacheOptions);
             }
 
             if (latestPlanetarySystems == null)
@@ -56,7 +55,7 @@ namespace Project.Controllers
                 var cacheOptions = new MemoryCacheEntryOptions()
                     .SetAbsoluteExpiration(TimeSpan.FromMilliseconds(15));
 
-                this.cache.Set(latestPlanetarySystemsCacheKey, latestPlanetarySystems, cacheOptions);
+                this.cache.Set(LatestPlanetarySystemsCacheKey, latestPlanetarySystems, cacheOptions);
             }
 
             return View(new IndexViewModel

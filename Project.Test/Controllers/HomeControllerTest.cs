@@ -1,30 +1,38 @@
-﻿using FluentAssertions;
-using MyTested.AspNetCore.Mvc;
+﻿using MyTested.AspNetCore.Mvc;
 using Project.Controllers;
-using Project.Data.Models;
 using Project.Models.Home;
-using System.Collections.Generic;
-using System.Linq;
+using System;
 using Xunit;
 
 namespace Project.Test.Controllers
 {
+    using static Data.Planets;
+    using static WebConstants.Cache;
+
     public class HomeControllerTest
     {
         [Fact]
-        public void IndexShouldReturnViewWithCorrectModelAndData()
-            => MyMvc
-            .Pipeline()
-            .ShouldMap("/")
-            .To<HomeController>(c => c.Index())
-            .Which(controller => controller
-            .WithData(GetPlanets()))
+        public void IndexShouldReturnCorrectViewWithModel()
+            => MyController<HomeController>
+            .Instance(controller => controller
+            .WithData(TenPublicPlanets()))
+            .Calling(c => c.Index())
+            .ShouldHave()
+            .MemoryCache(cache => cache
+            .ContainingEntry(entrie => entrie
+            .WithKey(LatestPlanetsCacheKey)
+            .WithAbsoluteExpirationRelativeToNow(TimeSpan.FromMilliseconds(15))))
+            .AndAlso()
             .ShouldReturn()
             .View(view => view
-            .WithModelOfType<IndexViewModel>()
-            .Passing(m => m.Planets.Should().HaveCount(3)));
+            .WithModelOfType<IndexViewModel>());
 
-        private static IEnumerable<Planet> GetPlanets()
-            => Enumerable.Range(0, 10).Select(i => new Planet());
+        [Fact]
+        public void ErrorShouldReturnView()
+            => MyController<HomeController>
+            .Instance()
+            .Calling(c => c.Error())
+            .ShouldReturn()
+            .View();
     }
 }

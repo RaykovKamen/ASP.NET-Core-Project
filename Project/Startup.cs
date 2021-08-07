@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Project.Areas.Admin.Controllers;
+using Project.Controllers;
 using Project.Data;
 using Project.Data.Models;
 using Project.Infrastructure.Extensions;
@@ -90,12 +90,20 @@ namespace Project
                     endpoints.MapControllerRoute(
                         name: "Planet Details",
                         pattern: "/Planets/Details/{id}/{information}",
-                        defaults: new { controller = "Planets", action = "Details" });
+                        defaults: new
+                        {
+                            controller = typeof(PlanetsController).GetControllerName(),
+                            action = nameof(PlanetsController.Details)
+                        });
 
                     endpoints.MapControllerRoute(
                         name: "Moon Details",
                         pattern: "/Moons/Details/{id}/{information}",
-                        defaults: new { controller = "Moons", action = "Details" });
+                        defaults: new
+                        {
+                            controller = typeof(MoonsController).GetControllerName(),
+                            action = nameof(MoonsController.Details)
+                        });
 
                     endpoints.MapDefaultControllerRoute();
                     endpoints.MapRazorPages();

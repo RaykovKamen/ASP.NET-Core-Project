@@ -50,7 +50,7 @@ namespace Project.Controllers
 
             TempData[GlobalMessageKey] = "Thank you for becomming a creator!";
 
-            return RedirectToAction("/Home");
+            return RedirectToAction(nameof(HomeController.Index), "Home");
         }
     }
 }
