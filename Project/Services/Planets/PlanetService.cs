@@ -133,6 +133,13 @@ namespace Project.Services.Planets
         private IEnumerable<PlanetServiceModel> GetPlanets(IQueryable<Planet> planetQuery)
             => planetQuery
             .ProjectTo<PlanetServiceModel>(this.mapper)
-                .ToList();    
+                .ToList();
+
+        public void Delete(int id)
+        {
+            var submission = this.data.Planets.Find(id);
+            this.data.Planets.Remove(submission);
+            this.data.SaveChanges();
+        }
     }
 }

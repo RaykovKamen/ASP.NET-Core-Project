@@ -509,7 +509,7 @@ namespace Project.Migrations
                     b.HasOne("Project.Data.Models.User", null)
                         .WithOne()
                         .HasForeignKey("Project.Data.Models.Creator", "UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
@@ -518,7 +518,7 @@ namespace Project.Migrations
                     b.HasOne("Project.Data.Models.Planet", "Planet")
                         .WithMany("Minerals")
                         .HasForeignKey("PlanetId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Planet");
@@ -535,7 +535,7 @@ namespace Project.Migrations
                     b.HasOne("Project.Data.Models.Planet", "Planet")
                         .WithMany("Moons")
                         .HasForeignKey("PlanetId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Creator");
@@ -548,13 +548,13 @@ namespace Project.Migrations
                     b.HasOne("Project.Data.Models.Creator", "Creator")
                         .WithMany("Planets")
                         .HasForeignKey("CreatorId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Project.Data.Models.PlanetarySystem", "PlanetarySystem")
                         .WithMany("Planets")
                         .HasForeignKey("PlanetarySystemId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Creator");
@@ -567,7 +567,7 @@ namespace Project.Migrations
                     b.HasOne("Project.Data.Models.Planet", "Planet")
                         .WithMany("Satellites")
                         .HasForeignKey("PlanetId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Planet");

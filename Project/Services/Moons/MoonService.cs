@@ -126,5 +126,12 @@ namespace Project.Services.Moons
             => moonQuery
                 .ProjectTo<MoonServiceModel>(this.mapper)
                 .ToList();
+
+        public void Delete(int id)
+        {
+            var submission = this.data.Moons.Find(id);
+            this.data.Moons.Remove(submission);
+            this.data.SaveChanges();
+        }
     }
 }

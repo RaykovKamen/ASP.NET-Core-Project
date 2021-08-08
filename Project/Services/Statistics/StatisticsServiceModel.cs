@@ -6,6 +6,6 @@
 
         public int TotalUsers { get; init; }
 
-        public int TotalMissions { get; init; }
+        public int TotalSatellites { get; init; }
     }
 }

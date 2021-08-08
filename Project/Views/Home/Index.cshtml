@@ -8,7 +8,7 @@
 {
 <div class="jumbotron">
     <h1 class="display-4">Welcome to Space Initiative!</h1>
-    <h4 class="heading-margin text-left">Tutorial 1: First you need to create Planetary System after that you can make Planets and you may add some Moons and Minerals to them.</h4>
+    <h4 class="heading-margin text-left">Tutorial 1: First you need to become Creator after that you can create Planetary Systems.</h4>
     <p class="lead">There are no Planetary Systems, you may create one!</p>
     <hr class="my-4">
     <p class="lead">
@@ -67,7 +67,7 @@
     <div class="row">
         <h2 class="col-md-4 text-center" id="total-planets"></h2>
         <h2 class="col-md-4 text-center" id="total-users"></h2>
-        <h2 class="col-md-4 text-center" id="total-missions"></h2>
+        <h2 class="col-md-4 text-center" id="total-satellites"></h2>
     </div>
 </div>
 
@@ -77,8 +77,7 @@
                 $.get('/api/statistics', (data) => {
                     $('#total-planets').text(data.totalPlanets + " Planets");
                     $('#total-users').text(data.totalUsers + " Users");
-                    $('#total-missions').text(data.totalMissions + " Missions");
-
+                    $('#total-satellites').text(data.totalSatellites + " Satellites");
                     $('#statistics').removeClass('d-none');
                     $('#statistics-button').hide();
                 });

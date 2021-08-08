@@ -58,5 +58,19 @@ namespace Project.Controllers
 
             return Redirect("/Home");
         }
+
+        [Authorize]
+        public IActionResult Delete(int id)
+        {
+            var userId = this.User.Id();
+
+            if (!this.creators.IsCreator(userId) && !User.IsAdmin())
+            {
+                return RedirectToAction(nameof(CreatorsController.Become), "Creators");
+            }
+
+            this.planetarySystems.Delete(id);
+            return this.Redirect("/");
+        }
     }
 }

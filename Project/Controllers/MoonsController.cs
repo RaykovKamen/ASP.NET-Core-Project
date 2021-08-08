@@ -177,5 +177,26 @@ namespace Project.Controllers
 
             return RedirectToAction(nameof(Details), new { id, information = moon.GetInformation() });
         }
+
+        [Authorize]
+        public IActionResult Delete(int id)
+        {
+            var userId = this.User.Id();
+
+            if (!this.creators.IsCreator(userId) && !User.IsAdmin())
+            {
+                return RedirectToAction(nameof(CreatorsController.Become), "Creators");
+            }
+
+            var moon = this.moons.Details(id);
+
+            if (moon.UserId != userId && !User.IsAdmin())
+            {
+                return Unauthorized();
+            }
+
+            this.moons.Delete(id);
+            return this.Redirect("/Planets/All");
+        }
     }
 }

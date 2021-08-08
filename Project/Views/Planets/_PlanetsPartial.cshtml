@@ -13,6 +13,7 @@
                     {
                         <a asp-controller="Planets" asp-action="Edit" asp-route-id="@planet.Id" class="btn btn-warning">Eddit</a>
                         <a asp-controller="Planets" asp-action="Delete" asp-route-id="@planet.Id" class="btn btn-danger">Delete</a>
+                        <a asp-controller="Satellites" asp-action="Sent" asp-route-id="@planet.Id" class="btn btn-info">Sent Satellite</a>
                     }
                 </div>
             </div>

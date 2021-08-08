@@ -1,0 +1,24 @@
+﻿@model IEnumerable<PlanetarySystemServiceModel>
+
+@{ ViewBag.Title = "Planetary Systems Administration"; }
+
+<h1>All Planetary Systems</h1>
+
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var planetarySystem in Model)
+        {
+<tr>
+    <td scope="col">@planetarySystem.Name</td>
+    <td scope="col">
+        <a asp-area="" asp-controller="PlanetarySystems" asp-action="Delete" asp-route-id="@planetarySystem.Id" class="btn btn-danger float-right ml-3">Delete</a>
+    </td>
+</tr>
+}
+    </tbody>
+</table>

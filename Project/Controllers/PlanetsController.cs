@@ -185,5 +185,26 @@ namespace Project.Controllers
 
             return RedirectToAction(nameof(Details), new { id, information = planet.GetInformation() });
         }
+
+        [Authorize]
+        public IActionResult Delete(int id)
+        {
+            var userId = this.User.Id();
+
+            if (!this.creators.IsCreator(userId) && !User.IsAdmin())
+            {
+                return RedirectToAction(nameof(CreatorsController.Become), "Creators");
+            }
+
+            var planet = this.planets.Details(id);
+
+            if (planet.UserId != userId && !User.IsAdmin())
+            {
+                return Unauthorized();
+            }
+
+            this.planets.Delete(id);
+            return this.Redirect("/All");
+        }
     }
 }

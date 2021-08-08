@@ -26,6 +26,8 @@ namespace Project.Services.Planets
             int planetarySystemId,
             int creatorId);
 
+        void Delete(int id);
+
         bool Edit(
             int planetId,
             string name,

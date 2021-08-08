@@ -3,6 +3,7 @@ using AutoMapper.QueryableExtensions;
 using Project.Data;
 using Project.Data.Models;
 using Project.Services.PlanetarySystems.Models;
+using Project.Services.Planets.Models;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -19,6 +20,21 @@ namespace Project.Services.PlanetarySystems
             this.mapper = mapper.ConfigurationProvider;
         }
 
+        public PlanetarySystemQueryServiceModel All()
+        {
+            var planetarySystemQuery = this.data.PlanetarySystems.AsQueryable();
+
+            var totalPlanetarySystems = planetarySystemQuery.Count();
+
+            var planetarySystem = GetPlanetarySystems(planetarySystemQuery
+               .OrderBy(p => p.Name));
+
+            return new PlanetarySystemQueryServiceModel
+            {
+                TotalPlanetarySystems = totalPlanetarySystems,
+                PlanetarySystems = planetarySystem
+            };
+        }
         public int Create(string name)
         {
             var planetarySystemData = new PlanetarySystem
@@ -32,6 +48,13 @@ namespace Project.Services.PlanetarySystems
             return planetarySystemData.Id;
         }
 
+        public void Delete(int id)
+        {
+            var submission = this.data.PlanetarySystems.Find(id);
+            this.data.PlanetarySystems.Remove(submission);
+            this.data.SaveChanges();
+        }
+
         public IEnumerable<LatestPlanetarySystemServiceModel> Latest()
         => this.data
             .PlanetarySystems
@@ -43,5 +66,10 @@ namespace Project.Services.PlanetarySystems
             => this.data
             .PlanetarySystems
             .Any(p => p.Name == planetartySystemName);
+
+        private IEnumerable<PlanetarySystemServiceModel> GetPlanetarySystems(IQueryable<PlanetarySystem> planetarySystemQuery)
+            => planetarySystemQuery
+                .ProjectTo<PlanetarySystemServiceModel>(this.mapper)
+                .ToList();
     }
 }

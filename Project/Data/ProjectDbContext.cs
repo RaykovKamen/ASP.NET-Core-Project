@@ -29,22 +29,19 @@ namespace Project.Data
                 .Entity<Planet>()
                 .HasOne(p => p.PlanetarySystem)
                 .WithMany(p => p.Planets)
-                .HasForeignKey(p => p.PlanetarySystemId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .HasForeignKey(p => p.PlanetarySystemId);
 
             builder
                 .Entity<Planet>()
                 .HasOne(p => p.Creator)
                 .WithMany(c => c.Planets)
-                .HasForeignKey(p => p.CreatorId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .HasForeignKey(p => p.CreatorId);
 
             builder
                 .Entity<Moon>()
                 .HasOne(m => m.Planet)
                 .WithMany(p => p.Moons)
-                .HasForeignKey(m => m.PlanetId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .HasForeignKey(m => m.PlanetId);
 
             builder
                 .Entity<Moon>()
@@ -57,22 +54,19 @@ namespace Project.Data
                 .Entity<Mineral>()
                 .HasOne(m => m.Planet)
                 .WithMany(p => p.Minerals)
-                .HasForeignKey(m => m.PlanetId)
-                .OnDelete(DeleteBehavior.Restrict);;
+                .HasForeignKey(m => m.PlanetId);
 
             builder
                 .Entity<Satellite>()
                 .HasOne(s => s.Planet)
                 .WithMany(p => p.Satellites)
-                .HasForeignKey(s => s.PlanetId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .HasForeignKey(s => s.PlanetId);
 
             builder
                 .Entity<Creator>()
                 .HasOne<User>()
                 .WithOne()
-                .HasForeignKey<Creator>(c => c.UserId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .HasForeignKey<Creator>(c => c.UserId);
 
             base.OnModelCreating(builder);
         }

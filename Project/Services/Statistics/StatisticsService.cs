@@ -14,11 +14,13 @@ namespace Project.Services.Statistics
         {
             var totalPlanets = this.data.Planets.Count();
             var totalUsers = this.data.Users.Count();
+            var totalSatellites = this.data.Satellites.Count();
 
             return new StatisticsServiceModel
             {
                 TotalPlanets = totalPlanets,
-                TotalUsers = totalUsers
+                TotalUsers = totalUsers,
+                TotalSatellites = totalSatellites
             };
         }
     }

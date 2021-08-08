@@ -24,6 +24,8 @@ namespace Project.Services.Moons
             int planetId,
             int creatorId);
 
+        void Delete(int id);
+
         bool Edit(
             int moonId,
             string name,
