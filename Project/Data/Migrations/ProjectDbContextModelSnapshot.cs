@@ -362,28 +362,6 @@ namespace Project.Migrations
                     b.ToTable("PlanetarySystems");
                 });
 
-            modelBuilder.Entity("Project.Data.Models.Satellite", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)");
-
-                    b.Property<int>("PlanetId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PlanetId");
-
-                    b.ToTable("Satellites");
-                });
-
             modelBuilder.Entity("Project.Data.Models.User", b =>
                 {
                     b.Property<string>("Id")
@@ -562,17 +540,6 @@ namespace Project.Migrations
                     b.Navigation("PlanetarySystem");
                 });
 
-            modelBuilder.Entity("Project.Data.Models.Satellite", b =>
-                {
-                    b.HasOne("Project.Data.Models.Planet", "Planet")
-                        .WithMany("Satellites")
-                        .HasForeignKey("PlanetId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Planet");
-                });
-
             modelBuilder.Entity("Project.Data.Models.Creator", b =>
                 {
                     b.Navigation("Moons");
@@ -585,8 +552,6 @@ namespace Project.Migrations
                     b.Navigation("Minerals");
 
                     b.Navigation("Moons");
-
-                    b.Navigation("Satellites");
                 });
 
             modelBuilder.Entity("Project.Data.Models.PlanetarySystem", b =>

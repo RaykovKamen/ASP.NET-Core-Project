@@ -79,5 +79,16 @@ namespace Project.Controllers
 
             return Redirect("/Planets/All");       
         }
+
+        [Authorize]
+        public IActionResult Mine() => View(this.minerals.All().Minerals);
+
+
+        [Authorize]
+        public IActionResult Delete(int id)
+        {
+            this.minerals.Delete(id);
+            return this.Redirect("/Planets/All");
+        }
     }
 }

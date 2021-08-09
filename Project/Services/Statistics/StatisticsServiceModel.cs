@@ -6,6 +6,6 @@
 
         public int TotalUsers { get; init; }
 
-        public int TotalSatellites { get; init; }
+        public int TotalMinerals{ get; init; }
     }
 }

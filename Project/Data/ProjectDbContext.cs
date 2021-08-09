@@ -19,8 +19,6 @@ namespace Project.Data
 
         public DbSet<Mineral> Minerals { get; init; }
 
-        public DbSet<Satellite> Satellites { get; init; }
-
         public DbSet<Creator> Creators { get; init; }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -55,12 +53,6 @@ namespace Project.Data
                 .HasOne(m => m.Planet)
                 .WithMany(p => p.Minerals)
                 .HasForeignKey(m => m.PlanetId);
-
-            builder
-                .Entity<Satellite>()
-                .HasOne(s => s.Planet)
-                .WithMany(p => p.Satellites)
-                .HasForeignKey(s => s.PlanetId);
 
             builder
                 .Entity<Creator>()

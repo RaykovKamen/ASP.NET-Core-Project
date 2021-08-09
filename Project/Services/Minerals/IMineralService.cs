@@ -5,6 +5,8 @@ namespace Project.Services.Minerals
 {
     public interface IMineralService
     {
+        MineralQueryServiceModel All();
+
         int Create(
            int? aluminum,
            int? beryllium,
@@ -23,6 +25,8 @@ namespace Project.Services.Minerals
            int? uranium,
            int? vanadium,
            int planetId);
+
+        void Delete(int id);
 
         IEnumerable<MineralServiceModel> AllPlanets();
 

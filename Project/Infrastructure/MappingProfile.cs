@@ -2,6 +2,7 @@
 using Project.Data.Models;
 using Project.Models.Moons;
 using Project.Models.Planets;
+using Project.Services.Minerals.Models;
 using Project.Services.Moons.Models;
 using Project.Services.PlanetarySystems.Models;
 using Project.Services.Planets.Models;
@@ -14,7 +15,7 @@ namespace Project.Infrastructure
         {
             this.CreateMap<PlanetarySystem, PlanetarySystemServiceModel>();
             this.CreateMap<Planet, MoonPlanetServiceModel>();
-
+            this.CreateMap<Mineral, MineralServiceModel>();
             this.CreateMap<PlanetarySystem, LatestPlanetarySystemServiceModel>();
             this.CreateMap<Planet, LatestPlanetServiceModel>();
             this.CreateMap<Planet, LatestPlanetarySystemServiceModel>();

@@ -3,43 +3,35 @@
 @{ ViewBag.Title = "Become Creator"; }
 
 <div class="row">
-    <div class="col-sm-12 offset-lg-2 col-lg8 offset-xl-3 col-xl-6">
+    <div class="col-sm-12 offset-lg-12 col-lg12 offset-xl2-12 col-xl-12">
         <h2 class="heading-margin text-center">@ViewBag.Title</h2>
         <form method="post">
             <div class="form-group">
                 <label asp-for="Name"></label>
-                <input asp-for="Name" class="form-control" placeholder="Perun">
+                <input asp-for="Name" class="form-control" placeholder="Argus">
                 <span asp-validation-for="Name" class="small text-danger"></span>
             </div>
             <h4 class="heading-margin text-center">Chose Avatar</h4>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="card mb-6">
-                        <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/commons/4/46/Perun_Gromoverzhecz_by_Andrey_Shishkin.jpg">
+                        <img class="card-img-top" img src="~/Golganneth.jpg" />
                         <div class="card-body">
                             <input class="btn btn-primary mt-6" type="submit" value="Become" />
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="card mb-6">
-                        <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/commons/d/dd/Veles_by_Andrey_Shishkin.jpg">
+                        <img class="card-img-top" img src="~/Aggramar.jpg" />
                         <div class="card-body">
                             <input class="btn btn-primary mt-6" type="submit" value="Become" />
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="card mb-6">
-                        <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/commons/6/68/Dazhbog_by_Andrey_Shishkin.jpg">
-                        <div class="card-body">
-                            <input class="btn btn-primary mt-6" type="submit" value="Become" />
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card mb-6">
-                        <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Yarilo_by_Andrey_Shishkin.jpg/800px-Yarilo_by_Andrey_Shishkin.jpg">
+                        <img class="card-img-top" img src="~/Khaz.jpg" />
                         <div class="card-body">
                             <input class="btn btn-primary mt-6" type="submit" value="Become" />
                         </div>

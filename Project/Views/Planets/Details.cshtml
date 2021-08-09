@@ -1,5 +1,26 @@
 ﻿@model PlanetDetailsServiceModel
 
 <div class="col-md-6 offset-3">
-    <h2>@Model.Name (@Model.PlanetarySystemName)</h2>
+    <h2>Planet Name: @Model.Name</h2>
+    <h3>Orbital Distance: @Model.OrbitalDistance AU</h3>
+    <h3>Orbital Period: @Model.OrbitalPeriod years</h3>
+    <h3>Radius: @Model.Radius km</h3>
+    <h3>Atmospheric Pressure: @Model.AtmosphericPressure atmospheres</h3>
+    @if (Model.SurfaceTemperature != null)
+    {
+        <h3>Surface Temperature: @Model.SurfaceTemperature C</h3>
+    }
+    <h3>Analysus: @Model.Analysis</h3>
+    <img class="card-img-top" src="@Model.ImageUrl">
+    <h3>Planetary System: @Model.PlanetarySystemName</h3>
+    <h3>Total Moons: @Model.Moons.Count()</h3>
+    <h3>Total Minerals: @Model.Minerals.Count()</h3>
+    @if (Model.Moons.Count() != 0)
+    {
+        <a asp-controller="Moons" asp-action="All" class="btn btn-info">All Moons</a>
+    }
+    @if (Model.Minerals.Count() != 0)
+    {
+        <a asp-controller="Minerals" asp-action="Mine" class="btn btn-danger">All Minerals</a>
+    }
 </div>

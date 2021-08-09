@@ -289,26 +289,6 @@ namespace Project.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Satellites",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
-                    PlanetId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Satellites", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Satellites_Planets_PlanetId",
-                        column: x => x.PlanetId,
-                        principalTable: "Planets",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -378,11 +358,6 @@ namespace Project.Migrations
                 name: "IX_Planets_PlanetarySystemId",
                 table: "Planets",
                 column: "PlanetarySystemId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Satellites_PlanetId",
-                table: "Satellites",
-                column: "PlanetId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -407,9 +382,6 @@ namespace Project.Migrations
 
             migrationBuilder.DropTable(
                 name: "Moons");
-
-            migrationBuilder.DropTable(
-                name: "Satellites");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

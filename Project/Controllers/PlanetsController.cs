@@ -204,7 +204,7 @@ namespace Project.Controllers
             }
 
             this.planets.Delete(id);
-            return this.Redirect("/All");
+            return this.Redirect("/Planets/All");
         }
     }
 }

@@ -1,5 +1,13 @@
 ﻿@model MoonDetailsServiceModel
 
 <div class="col-md-6 offset-3">
-    <h2>@Model.Name (@Model.PlanetName)</h2>
+    <h2>Moon Name: @Model.Name</h2>
+    <h3>Orbital Distance: @Model.OrbitalDistance AU</h3>
+    <h3>Orbital Period: @Model.OrbitalPeriod years</h3>
+    <h3>Radius: @Model.Radius km</h3>
+    <h3>Atmospheric Pressure: @Model.AtmosphericPressure atmospheres</h3>
+    <h3>Surface Temperature: @Model.SurfaceTemperature C</h3>
+    <h3>Analysus: @Model.Analysis</h3>
+    <img class="card-img-top" src="@Model.ImageUrl">
+    <h3>Planet: @Model.PlanetName</h3>
 </div>

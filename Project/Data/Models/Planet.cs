@@ -44,8 +44,6 @@ namespace Project.Data.Models
 
         public IEnumerable<Moon> Moons { get; init; } = new List<Moon>();
 
-        public IEnumerable<Satellite> Satellites { get; init; } = new List<Satellite>();
-
         public IEnumerable<Mineral> Minerals { get; init; } = new List<Mineral>();
     }
 }
