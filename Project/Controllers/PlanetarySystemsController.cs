@@ -4,6 +4,7 @@ using Project.Infrastructure.Extensions;
 using Project.Models.PlanetarySystems;
 using Project.Services.Creators;
 using Project.Services.PlanetarySystems;
+using static Project.WebConstants;
 
 namespace Project.Controllers
 {
@@ -55,7 +56,7 @@ namespace Project.Controllers
             }
 
             this.planetarySystems.Create(planetarySystem.Name);
-
+            TempData[GlobalMessageKey] = "Planetary System was created!";
             return Redirect("/Home");
         }
 

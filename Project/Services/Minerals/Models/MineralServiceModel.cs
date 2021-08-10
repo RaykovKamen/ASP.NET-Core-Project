@@ -7,5 +7,7 @@
         public string Name { get; init; }
 
         public string PlanetName { get; init; }
+
+        public string MoonName { get; init; }
     }
 }

@@ -1,20 +1,22 @@
 ﻿@model IEnumerable<MineralServiceModel>
 
-@{ ViewBag.Title = "Mine Minerals"; }
+@{ ViewBag.Title = "All Minerals"; }
 
-<h1>Mine Minerals</h1>
+<h1>All Minerals</h1>
 
 <table class="table table-dark">
     <thead class="thead-dark">
         <tr>
             <th scope="col">Planet Name</th>
+            <th scope="col">Moon Name</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var mineral in Model)
         {
         <tr>
-            <td scope="col">@mineral.PlanetName</td>\
+            <td scope="col">@mineral.PlanetName</td>
+            <td scope="col">@mineral.MoonName</td>
             <td scope="col">
                 <a asp-controller="Minerals" asp-action="Delete" asp-route-id="@mineral.Id" class="btn btn-danger float-right ml-3">Mine Mineral</a>
             </td>

@@ -22,13 +22,21 @@
                         {
                             <li class="dropdown">
                               <button class="btn" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Create/Add
+                                Create
                               </button>
                               <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
                                   <a class="nav-link text-dark" asp-area="" asp-controller="PlanetarySystems" asp-action="Add">Create Planetary System</a>
                                   <a class="nav-link text-dark" asp-area="" asp-controller="Planets" asp-action="Add">Create Planet</a>
+                              </div>
+                            </li>
+                            <li class="dropdown">
+                              <button class="btn" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Add
+                              </button>
+                              <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
                                   <a class="nav-link text-dark" asp-area="" asp-controller="Moons" asp-action="Add">Add Moon</a>
-                                  <a class="nav-link text-dark" asp-area="" asp-controller="Minerals" asp-action="Add">Add Minerals</a>
+                                  <a class="nav-link text-dark" asp-area="" asp-controller="Minerals" asp-action="Add">Add Minerals To Planet</a>
+                                  <a class="nav-link text-dark" asp-area="" asp-controller="Minerals" asp-action="AddToMoon">Add Minerals To Moon</a>
                               </div>
                             </li>
                             <li class="dropdown">
@@ -38,7 +46,7 @@
                               <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
                                   <a class="nav-link text-dark" asp-area="" asp-controller="Planets" asp-action="All">All Planets</a>
                                   <a class="nav-link text-dark" asp-area="" asp-controller="Moons" asp-action="All">All Moons</a>
-                                  <a class="nav-link text-dark" asp-area="" asp-controller="Minerals" asp-action="Mine">All Minerals</a>
+                                  <a class="nav-link text-dark" asp-area="" asp-controller="Minerals" asp-action="All">All Minerals</a>
                               </div>
                             </li>
                          }

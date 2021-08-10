@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Project.Models.Minerals
 {
-    public class MineralFormModel
+    public class MineralMoonFormModel
     {
         [Range(0, 100)]
         public int? Aluminum { get; init; }
@@ -54,12 +54,12 @@ namespace Project.Models.Minerals
         [Range(0, 100)]
         public int? Vanadium { get; init; }
 
-        [Required]
-        [Display(Name = "Planet Name")]
         public int? PlanetId { get; init; }
 
+        [Required]
+        [Display(Name = "Moon Name")]
         public int? MoonId { get; init; }
 
-        public IEnumerable<MineralServiceModel> Planets { get; set; }
+        public IEnumerable<MineralServiceModel> Moons { get; set; }
     }
 }

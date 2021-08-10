@@ -1,0 +1,99 @@
+﻿@model MineralMoonFormModel
+
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg8 offset-xl-3 col-xl-6">
+        <h2 class="heading-margin text-center">@ViewBag.Title</h2>
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="Aluminum"></label>
+                <input asp-for="Aluminum" class="form-control" placeholder="0-100">
+                <span asp-validation-for="Aluminum" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Beryllium"></label>
+                <input asp-for="Beryllium" class="form-control" placeholder="0-100">
+                <span asp-validation-for="Beryllium" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Cadmium"></label>
+                <input asp-for="Cadmium" class="form-control" placeholder="0-100">
+                <span asp-validation-for="Cadmium" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Copper "></label>
+                <input asp-for="Copper " class="form-control" placeholder="0-100">
+                <span asp-validation-for="Copper " class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Fluorite "></label>
+                <input asp-for="Fluorite " class="form-control" placeholder="0-100">
+                <span asp-validation-for="Fluorite " class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Graphite "></label>
+                <input asp-for="Graphite " class="form-control" placeholder="0-100">
+                <span asp-validation-for="Graphite " class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Iridium "></label>
+                <input asp-for="Iridium " class="form-control" placeholder="0-100">
+                <span asp-validation-for="Iridium " class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Iron "></label>
+                <input asp-for="Iron " class="form-control" placeholder="0-100">
+                <span asp-validation-for="Iron " class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Lithium "></label>
+                <input asp-for="Lithium " class="form-control" placeholder="0-100">
+                <span asp-validation-for="Lithium " class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Magnesium "></label>
+                <input asp-for="Magnesium " class="form-control" placeholder="0-100">
+                <span asp-validation-for="Magnesium " class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Nickel "></label>
+                <input asp-for="Nickel " class="form-control" placeholder="0-100">
+                <span asp-validation-for="Nickel " class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Platinum "></label>
+                <input asp-for="Platinum " class="form-control" placeholder="0-100">
+                <span asp-validation-for="Platinum " class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Silicon "></label>
+                <input asp-for="Silicon " class="form-control" placeholder="0-100">
+                <span asp-validation-for="Silicon " class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Titanium"></label>
+                <input asp-for="Titanium" class="form-control" placeholder="0-100">
+                <span asp-validation-for="Titanium" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Uranium "></label>
+                <input asp-for="Uranium " class="form-control" placeholder="0-100">
+                <span asp-validation-for="Uranium " class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Vanadium "></label>
+                <input asp-for="Vanadium " class="form-control" placeholder="0-100">
+                <span asp-validation-for="Vanadium " class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MoonId"></label>
+                <select asp-for="MoonId" class="form-control">
+                    @foreach (var Moons in Model.Moons)
+                    {
+        <option value="@Moons.Id">@Moons.Name</option>}
+                </select>
+                <span asp-validation-for="MoonId" class="small text-danger"></span>
+            </div>
+            <input class="btn btn-primary mt-3" type="submit" value="Save" />
+        </form>
+    </div>
+</div>

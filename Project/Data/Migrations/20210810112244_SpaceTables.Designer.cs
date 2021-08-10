@@ -10,7 +10,7 @@ using Project.Data;
 namespace Project.Migrations
 {
     [DbContext(typeof(ProjectDbContext))]
-    [Migration("20210809122938_SpaceTables")]
+    [Migration("20210810112244_SpaceTables")]
     partial class SpaceTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -217,10 +217,13 @@ namespace Project.Migrations
                     b.Property<int?>("Magnesium")
                         .HasColumnType("int");
 
+                    b.Property<int?>("MoonId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("Nickel")
                         .HasColumnType("int");
 
-                    b.Property<int>("PlanetId")
+                    b.Property<int?>("PlanetId")
                         .HasColumnType("int");
 
                     b.Property<int?>("Platinum")
@@ -239,6 +242,8 @@ namespace Project.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("MoonId");
 
                     b.HasIndex("PlanetId");
 
@@ -495,11 +500,16 @@ namespace Project.Migrations
 
             modelBuilder.Entity("Project.Data.Models.Mineral", b =>
                 {
+                    b.HasOne("Project.Data.Models.Moon", "Moon")
+                        .WithMany("Minerals")
+                        .HasForeignKey("MoonId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("Project.Data.Models.Planet", "Planet")
                         .WithMany("Minerals")
-                        .HasForeignKey("PlanetId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PlanetId");
+
+                    b.Navigation("Moon");
 
                     b.Navigation("Planet");
                 });
@@ -547,6 +557,11 @@ namespace Project.Migrations
                     b.Navigation("Moons");
 
                     b.Navigation("Planets");
+                });
+
+            modelBuilder.Entity("Project.Data.Models.Moon", b =>
+                {
+                    b.Navigation("Minerals");
                 });
 
             modelBuilder.Entity("Project.Data.Models.Planet", b =>

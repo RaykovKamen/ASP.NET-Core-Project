@@ -5,7 +5,6 @@ using Project.Data.Models;
 using Project.Services.Minerals.Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Timers;
 
 namespace Project.Services.Minerals
 {
@@ -37,7 +36,7 @@ namespace Project.Services.Minerals
             };
         }
 
-        public int Create(int? aluminum, int? beryllium, int? cadmium, int? copper, int? fluorite, int? graphite, int? iridium, int? iron, int? lithium, int? magnesium, int? nickel, int? platinum, int? silicon, int? titanium, int? uranium, int? vanadium, int planetId)
+        public int Create(int? aluminum, int? beryllium, int? cadmium, int? copper, int? fluorite, int? graphite, int? iridium, int? iron, int? lithium, int? magnesium, int? nickel, int? platinum, int? silicon, int? titanium, int? uranium, int? vanadium, int? planetId, int? moonId)
         {
             var mineralData = new Mineral
             {
@@ -57,7 +56,38 @@ namespace Project.Services.Minerals
                 Titanium = titanium,
                 Uranium = uranium,
                 Vanadium = vanadium,
-                PlanetId = planetId
+                PlanetId = planetId,
+                MoonId = moonId
+            };
+
+            this.data.Minerals.Add(mineralData);
+            this.data.SaveChanges();
+
+            return mineralData.Id;
+        }
+
+        public int CreateToMoon(int? aluminum, int? beryllium, int? cadmium, int? copper, int? fluorite, int? graphite, int? iridium, int? iron, int? lithium, int? magnesium, int? nickel, int? platinum, int? silicon, int? titanium, int? uranium, int? vanadium, int? planetId, int? moonId)
+        {
+            var mineralData = new Mineral
+            {
+                Aluminum = aluminum,
+                Beryllium = beryllium,
+                Cadmium = cadmium,
+                Copper = copper,
+                Fluorite = fluorite,
+                Graphite = graphite,
+                Iridium = iridium,
+                Iron = iron,
+                Lithium = lithium,
+                Magnesium = magnesium,
+                Nickel = nickel,
+                Platinum = platinum,
+                Silicon = silicon,
+                Titanium = titanium,
+                Uranium = uranium,
+                Vanadium = vanadium,
+                PlanetId = planetId,
+                MoonId = moonId
             };
 
             this.data.Minerals.Add(mineralData);
@@ -83,10 +113,25 @@ namespace Project.Services.Minerals
            })
            .ToList();
 
-        public bool PlanetExists(int planetId)
+        public IEnumerable<MineralServiceModel> AllMoons()
+           => this.data
+           .Moons
+           .Select(p => new MineralServiceModel
+           {
+               Id = p.Id,
+               Name = p.Name
+           })
+           .ToList();
+
+        public bool PlanetExists(int? planetId)
            => this.data
            .Planets
            .Any(p => p.Id == planetId);
+
+        public bool MoonExists(int? moonId)
+        => this.data
+           .Moons
+           .Any(m => m.Id == moonId);
 
         private IEnumerable<MineralServiceModel> GetMinerals(IQueryable<Mineral> mineralQuery)
             => mineralQuery
