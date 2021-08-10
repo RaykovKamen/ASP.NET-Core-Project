@@ -204,6 +204,7 @@ namespace Project.Controllers
             }
 
             this.planets.Delete(id);
+            TempData[GlobalMessageKey] = $"Your planet was deleted!";
             return this.Redirect("/Planets/All");
         }
     }

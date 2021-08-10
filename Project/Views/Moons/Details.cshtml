@@ -1,13 +1,28 @@
 ﻿@model MoonDetailsServiceModel
 
-<div class="col-md-6 offset-3">
-    <h2>Moon Name: @Model.Name</h2>
-    <h3>Orbital Distance: @Model.OrbitalDistance AU</h3>
-    <h3>Orbital Period: @Model.OrbitalPeriod years</h3>
-    <h3>Radius: @Model.Radius km</h3>
-    <h3>Atmospheric Pressure: @Model.AtmosphericPressure atmospheres</h3>
-    <h3>Surface Temperature: @Model.SurfaceTemperature C</h3>
-    <h3>Analysus: @Model.Analysis</h3>
-    <img class="card-img-top" src="@Model.ImageUrl">
-    <h3>Planet: @Model.PlanetName</h3>
-</div>
+<dl class="row">
+    <dt class="col-sm-3">Moon Name:</dt>
+    <dd class="col-sm-9">@Model.Name</dd>
+
+    <dt class="col-sm-3">Orbital Distance:</dt>
+    <dd class="col-sm-9">@Model.OrbitalDistance AU</dd>
+
+    <dt class="col-sm-3">Orbital Period:</dt>
+    <dd class="col-sm-9">@Model.OrbitalPeriod years</dd>
+
+    <dt class="col-sm-3">Radius:</dt>
+    <dd class="col-sm-9">@Model.Radius km</dd>
+
+    <dt class="col-sm-3">Atmospheric Pressure:</dt>
+    <dd class="col-sm-9">@Model.AtmosphericPressure atmospheres</dd>
+
+    <dt class="col-sm-3">Surface Temperature:</dt>
+    <dd class="col-sm-9">@Model.SurfaceTemperature</dd>
+
+    <dt class="col-sm-3">Analysus:</dt>
+    <dd class="col-sm-9">@Model.Analysis</dd>
+
+    <dt class="col-sm-3">Planet:</dt>
+    <dd class="col-sm-9">@Model.PlanetName</dd>
+</dl>
+<img class="card-img-top" src="@Model.ImageUrl">

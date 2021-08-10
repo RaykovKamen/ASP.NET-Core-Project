@@ -4,6 +4,7 @@ using Project.Infrastructure.Extensions;
 using Project.Models.Minerals;
 using Project.Services.Creators;
 using Project.Services.Minerals;
+using static Project.WebConstants;
 
 namespace Project.Controllers
 {
@@ -88,7 +89,8 @@ namespace Project.Controllers
         public IActionResult Delete(int id)
         {
             this.minerals.Delete(id);
-            return this.Redirect("/Planets/All");
+            TempData[GlobalMessageKey] = $"Mining was successful!";
+            return this.Redirect("/Minerals/Mine");
         }
     }
 }

@@ -38,6 +38,14 @@ namespace Project.Controllers
             return View(query);
         }
 
+        [Authorize]
+        public IActionResult Mine()
+        {
+            var myMoons = this.moons.ByUser(this.User.Id());
+
+            return View(myMoons);
+        }
+
         public IActionResult Details(int id, string information)
         {
             var moon = this.moons.Details(id);
@@ -196,6 +204,7 @@ namespace Project.Controllers
             }
 
             this.moons.Delete(id);
+            TempData[GlobalMessageKey] = $"Your moon was deleted!";
             return this.Redirect("/Planets/All");
         }
     }

@@ -1,26 +1,37 @@
 ﻿@model PlanetDetailsServiceModel
 
-<div class="col-md-6 offset-3">
-    <h2>Planet Name: @Model.Name</h2>
-    <h3>Orbital Distance: @Model.OrbitalDistance AU</h3>
-    <h3>Orbital Period: @Model.OrbitalPeriod years</h3>
-    <h3>Radius: @Model.Radius km</h3>
-    <h3>Atmospheric Pressure: @Model.AtmosphericPressure atmospheres</h3>
+<dl class="row">
+    <dt class="col-sm-3">Planet Name:</dt>
+    <dd class="col-sm-9">@Model.Name</dd>
+
+    <dt class="col-sm-3">Orbital Distance:</dt>
+    <dd class="col-sm-9">@Model.OrbitalDistance AU</dd>
+
+    <dt class="col-sm-3">Orbital Period:</dt>
+    <dd class="col-sm-9">@Model.OrbitalPeriod years</dd>
+
+    <dt class="col-sm-3">Radius:</dt>
+    <dd class="col-sm-9">@Model.Radius km</dd>
+
+    <dt class="col-sm-3">Atmospheric Pressure:</dt>
+    <dd class="col-sm-9">@Model.AtmosphericPressure atmospheres</dd>
+
     @if (Model.SurfaceTemperature != null)
     {
-        <h3>Surface Temperature: @Model.SurfaceTemperature C</h3>
+        <dt class="col-sm-3">Surface Temperature:</dt>
+        <dd class="col-sm-9">@Model.SurfaceTemperature</dd>
     }
-    <h3>Analysus: @Model.Analysis</h3>
+
+    <dt class="col-sm-3">Analysus:</dt>
+    <dd class="col-sm-9">@Model.Analysis</dd>
+
+    <dt class="col-sm-3">Planetary System:</dt>
+    <dd class="col-sm-9">@Model.PlanetarySystemName</dd>
+
+    <dt class="col-sm-3">Total Moons:</dt>
+    <dd class="col-sm-9">@Model.Moons.Count()</dd>
+
+    <dt class="col-sm-3">Total Minerals:</dt>
+    <dd class="col-sm-9">@Model.Minerals.Count()</dd>
+</dl>
     <img class="card-img-top" src="@Model.ImageUrl">
-    <h3>Planetary System: @Model.PlanetarySystemName</h3>
-    <h3>Total Moons: @Model.Moons.Count()</h3>
-    <h3>Total Minerals: @Model.Minerals.Count()</h3>
-    @if (Model.Moons.Count() != 0)
-    {
-        <a asp-controller="Moons" asp-action="All" class="btn btn-info">All Moons</a>
-    }
-    @if (Model.Minerals.Count() != 0)
-    {
-        <a asp-controller="Minerals" asp-action="Mine" class="btn btn-danger">All Minerals</a>
-    }
-</div>

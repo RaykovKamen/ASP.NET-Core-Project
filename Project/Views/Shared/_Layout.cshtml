@@ -20,21 +20,27 @@
                     <ul class="navbar-nav flex-grow-1">
                         @if (!User.IsAdmin())
                         {
-                             <li class="nav-item">
-                                 <a class="nav-link text-dark" asp-area="" asp-controller="PlanetarySystems" asp-action="Add">Create Planetary System</a>
-                             </li>
-                             <li class="nav-item">
-                                 <a class="nav-link text-dark" asp-area="" asp-controller="Planets" asp-action="Add">Create Planet</a>
-                             </li>
-                             <li class="nav-item">
-                                 <a class="nav-link text-dark" asp-area="" asp-controller="Moons" asp-action="Add">Add Moon</a>
-                             </li>
-                              <li class="nav-item">
+                            <li class="dropdown">
+                              <button class="btn" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Create/Add
+                              </button>
+                              <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                  <a class="nav-link text-dark" asp-area="" asp-controller="PlanetarySystems" asp-action="Add">Create Planetary System</a>
+                                  <a class="nav-link text-dark" asp-area="" asp-controller="Planets" asp-action="Add">Create Planet</a>
+                                  <a class="nav-link text-dark" asp-area="" asp-controller="Moons" asp-action="Add">Add Moon</a>
                                   <a class="nav-link text-dark" asp-area="" asp-controller="Minerals" asp-action="Add">Add Minerals</a>
-                              </li>
-                              <li class="nav-item">
+                              </div>
+                            </li>
+                            <li class="dropdown">
+                              <button class="btn" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                All
+                              </button>
+                              <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
                                   <a class="nav-link text-dark" asp-area="" asp-controller="Planets" asp-action="All">All Planets</a>
-                              </li>
+                                  <a class="nav-link text-dark" asp-area="" asp-controller="Moons" asp-action="All">All Moons</a>
+                                  <a class="nav-link text-dark" asp-area="" asp-controller="Minerals" asp-action="Mine">All Minerals</a>
+                              </div>
+                            </li>
                          }
                     </ul>
                     <partial name="_LoginPartial" />

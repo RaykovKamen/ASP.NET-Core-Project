@@ -1,0 +1,10 @@
+﻿@model IEnumerable<MoonServiceModel>
+
+@{ ViewBag.Title = "My Moons";
+                ViewBag.AllowPlanetEdit = true; }
+
+@if (!Model.Any())
+{
+<h2 class="text-xl-center">You do not have any moons yet!</h2>}
+
+<partial name="_MoonsPartial" model="@Model" />
