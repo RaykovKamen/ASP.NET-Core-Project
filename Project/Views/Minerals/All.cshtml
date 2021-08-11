@@ -2,6 +2,10 @@
 
 @{ ViewBag.Title = "All Minerals"; }
 
+@if (!Model.Any())
+{
+<h2 class="text-xl-center">No minerals found!</h2>}
+
 <h1>All Minerals</h1>
 
 <table class="table table-dark">
@@ -14,13 +18,12 @@
     <tbody>
         @foreach (var mineral in Model)
         {
-        <tr>
-            <td scope="col">@mineral.PlanetName</td>
-            <td scope="col">@mineral.MoonName</td>
-            <td scope="col">
-                <a asp-controller="Minerals" asp-action="Delete" asp-route-id="@mineral.Id" class="btn btn-danger float-right ml-3">Mine Mineral</a>
-            </td>
-        </tr>
-         }
+<tr>
+    <td scope="col">@mineral.PlanetName</td>
+    <td scope="col">@mineral.MoonName</td>
+    <td scope="col">
+        <a asp-controller="Minerals" asp-action="Delete" asp-route-id="@mineral.Id" class="btn btn-danger float-right ml-3">Mine Mineral</a>
+    </td>
+</tr>}
     </tbody>
 </table>

@@ -1,0 +1,14 @@
+﻿@model IEnumerable<MineralServiceModel>
+
+@{ ViewBag.Title = "Mine Minerals"; }
+
+<div class="row">
+    @foreach (var mineral in Model)
+    {
+
+        <h2>@mineral.PlanetName:</h2>
+        <div class="col-md-2">
+        <a asp-controller="Minerals" asp-action="Delete" asp-route-id="@mineral.Id" class="btn btn-danger">Mine Minerals</a>
+        </div>    
+     }
+</div>

@@ -500,12 +500,12 @@ namespace Project.Migrations
                 {
                     b.HasOne("Project.Data.Models.Moon", "Moon")
                         .WithMany("Minerals")
-                        .HasForeignKey("MoonId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("MoonId");
 
                     b.HasOne("Project.Data.Models.Planet", "Planet")
                         .WithMany("Minerals")
-                        .HasForeignKey("PlanetId");
+                        .HasForeignKey("PlanetId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Moon");
 

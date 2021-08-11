@@ -10,8 +10,8 @@ using Project.Data;
 namespace Project.Migrations
 {
     [DbContext(typeof(ProjectDbContext))]
-    [Migration("20210810112244_SpaceTables")]
-    partial class SpaceTables
+    [Migration("20210811093609_a")]
+    partial class a
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -502,12 +502,12 @@ namespace Project.Migrations
                 {
                     b.HasOne("Project.Data.Models.Moon", "Moon")
                         .WithMany("Minerals")
-                        .HasForeignKey("MoonId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("MoonId");
 
                     b.HasOne("Project.Data.Models.Planet", "Planet")
                         .WithMany("Minerals")
-                        .HasForeignKey("PlanetId");
+                        .HasForeignKey("PlanetId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Moon");
 
