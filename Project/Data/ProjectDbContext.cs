@@ -52,14 +52,7 @@ namespace Project.Data
                 .Entity<Mineral>()
                 .HasOne(m => m.Planet)
                 .WithMany(p => p.Minerals)
-                .HasForeignKey(m => m.PlanetId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            builder
-                .Entity<Mineral>()
-                .HasOne(m => m.Moon)
-                .WithMany(m => m.Minerals)
-                .HasForeignKey(m => m.MoonId);
+                .HasForeignKey(m => m.PlanetId);
 
             builder
                 .Entity<Creator>()

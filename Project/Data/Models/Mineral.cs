@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Project.Data.Models
 {
@@ -55,12 +54,8 @@ namespace Project.Data.Models
         [Range(0, 100)]
         public int? Vanadium { get; set; }
 
-        public int? PlanetId { get; set; }
-
-        public int? MoonId { get; set; }
+        public int PlanetId { get; set; }
 
         public Planet Planet { get; init; }
-
-        public Moon Moon { get; init; }
     }
 }

@@ -89,7 +89,7 @@
                 <select asp-for="PlanetId" class="form-control">
                     @foreach (var Planet in Model.Planets)
                     {
-                        <option value="@Planet.Id">@Planet.Name</option>
+                        <option value="@Planet.Id">@Planet.PlanetName</option>
                     }
                 </select>
                 <span asp-validation-for="PlanetId" class="small text-danger"></span>

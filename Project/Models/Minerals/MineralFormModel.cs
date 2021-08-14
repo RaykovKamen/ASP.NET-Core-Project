@@ -56,9 +56,7 @@ namespace Project.Models.Minerals
 
         [Required]
         [Display(Name = "Planet Name")]
-        public int? PlanetId { get; init; }
-
-        public int? MoonId { get; init; }
+        public int PlanetId { get; init; }
 
         public IEnumerable<MineralServiceModel> Planets { get; set; }
     }

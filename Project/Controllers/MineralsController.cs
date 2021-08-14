@@ -35,20 +35,6 @@ namespace Project.Controllers
             });
         }
 
-        [Authorize]
-        public IActionResult AddToMoon()
-        {
-            if (!this.creators.IsCreator(this.User.Id()))
-            {
-                return RedirectToAction(nameof(CreatorsController.Become), "Creators");
-            }
-
-            return View(new MineralMoonFormModel
-            {
-                Moons = this.minerals.AllMoons()
-            });
-        }
-
         [HttpPost]
         [Authorize]
         public IActionResult Add(MineralFormModel mineral)
@@ -89,56 +75,9 @@ namespace Project.Controllers
                 mineral.Titanium,
                 mineral.Uranium,
                 mineral.Vanadium,
-                mineral.PlanetId,
-                mineral.MoonId);
+                mineral.PlanetId);
 
             return Redirect("/Planets/All");       
-        }
-
-        [HttpPost]
-        [Authorize]
-        public IActionResult AddToMoon(MineralMoonFormModel mineral)
-        {
-            var creatorId = this.creators.IdByUser(this.User.Id());
-
-            if (creatorId == 0)
-            {
-                return RedirectToAction(nameof(CreatorsController.Become), "Creators");
-            }
-
-            if (!this.minerals.MoonExists(mineral.MoonId))
-            {
-                this.ModelState.AddModelError(nameof(mineral.MoonId), "Moon does not exist.");
-            }
-
-            if (!ModelState.IsValid)
-            {
-                mineral.Moons = this.minerals.AllMoons();
-
-                return View(mineral);
-            }
-
-            this.minerals.CreateToMoon(
-                mineral.Aluminum,
-                mineral.Beryllium,
-                mineral.Cadmium,
-                mineral.Copper,
-                mineral.Fluorite,
-                mineral.Graphite,
-                mineral.Iridium,
-                mineral.Iron,
-                mineral.Lithium,
-                mineral.Magnesium,
-                mineral.Nickel,
-                mineral.Platinum,
-                mineral.Silicon,
-                mineral.Titanium,
-                mineral.Uranium,
-                mineral.Vanadium,
-                mineral.PlanetId,
-                mineral.MoonId);
-
-            return Redirect("/Moons/All");
         }
 
         [Authorize]

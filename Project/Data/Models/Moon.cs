@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Project.Data.Models
 {
@@ -42,7 +41,5 @@ namespace Project.Data.Models
         public Planet Planet { get; init; }
 
         public Creator Creator { get; init; }
-
-        public IEnumerable<Mineral> Minerals { get; init; } = new List<Mineral>();
     }
 }
