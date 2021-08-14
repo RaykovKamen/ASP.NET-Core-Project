@@ -11,7 +11,7 @@
                     <a asp-controller="Moons" asp-action="Details" asp-route-id="@moon.Id" asp-route-information="@moon.GetInformation()" class="btn btn-primary">View</a>
                     @if (ViewBag.AllowPlanetEdit == true || User.IsAdmin())
                     {
-                        <a asp-controller="Moons" asp-action="Edit" asp-route-id="@moon.Id" class="btn btn-warning">Eddit</a>
+                        <a asp-controller="Moons" asp-action="Edit" asp-route-id="@moon.Id" class="btn btn-warning">Edit</a>
                         <a asp-controller="Moons" asp-action="Delete" asp-route-id="@moon.Id" class="btn btn-danger">Delete</a>
                     }
                 </div>

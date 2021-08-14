@@ -59,7 +59,7 @@ namespace Project.Data
                 .Entity<Mineral>()
                 .HasOne(m => m.Moon)
                 .WithMany(m => m.Minerals)
-                .HasForeignKey(m => m.MoonId); ;
+                .HasForeignKey(m => m.MoonId);
 
             builder
                 .Entity<Creator>()
