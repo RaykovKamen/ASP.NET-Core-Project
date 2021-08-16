@@ -35,7 +35,7 @@ namespace Project.Services.Moons
             var totalMoons = moonsQuery.Count();
 
             var moons = GetMoons(moonsQuery
-                .OrderBy(p => p.Name)
+                .OrderBy(p => p.Planet)
                 .Skip((currentPage - 1) * moonsPerPage)
                 .Take(moonsPerPage));
 

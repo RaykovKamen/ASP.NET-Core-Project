@@ -35,7 +35,7 @@ namespace Project.Services.Planets
             var totalPlanets = planetsQuery.Count();
 
             var planets = GetPlanets(planetsQuery
-                .OrderBy(p => p.Name)
+                .OrderBy(p => p.PlanetarySystem)
                 .Skip((currentPage - 1) * planetsPerPage)
                 .Take(planetsPerPage));
 
