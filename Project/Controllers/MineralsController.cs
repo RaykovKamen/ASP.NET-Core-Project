@@ -77,6 +77,7 @@ namespace Project.Controllers
                 mineral.Vanadium,
                 mineral.PlanetId);
 
+            TempData[GlobalMessageKey] = "Minerals Added!";
             return Redirect("/Planets/All");       
         }
 
