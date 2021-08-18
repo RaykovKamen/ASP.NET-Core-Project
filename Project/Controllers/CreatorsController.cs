@@ -5,10 +5,11 @@ using Project.Data.Models;
 using Project.Infrastructure.Extensions;
 using Project.Models.Creators;
 using System.Linq;
-using static Project.WebConstants;
 
 namespace Project.Controllers
 {
+    using static Project.WebConstants;
+
     public class CreatorsController : Controller
     {
         private readonly ProjectDbContext data;

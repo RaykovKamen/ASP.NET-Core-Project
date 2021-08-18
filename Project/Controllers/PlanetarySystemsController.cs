@@ -4,10 +4,11 @@ using Project.Infrastructure.Extensions;
 using Project.Models.PlanetarySystems;
 using Project.Services.Creators;
 using Project.Services.PlanetarySystems;
-using static Project.WebConstants;
 
 namespace Project.Controllers
 {
+    using static Project.WebConstants;
+
     public class PlanetarySystemsController : Controller
     {
         private readonly IPlanetarySystemService planetarySystems;

@@ -4,10 +4,11 @@ using Project.Infrastructure.Extensions;
 using Project.Models.Minerals;
 using Project.Services.Creators;
 using Project.Services.Minerals;
-using static Project.WebConstants;
 
 namespace Project.Controllers
 {
+    using static Project.WebConstants;
+
     public class MineralsController : Controller
     {
         private readonly IMineralService minerals;
@@ -78,7 +79,7 @@ namespace Project.Controllers
                 mineral.PlanetId);
 
             TempData[GlobalMessageKey] = "Minerals Added!";
-            return Redirect("/Planets/All");       
+            return Redirect("/Planets/All");
         }
 
         [Authorize]

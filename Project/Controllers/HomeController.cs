@@ -21,7 +21,7 @@ namespace Project.Controllers
 
         public HomeController(
             IPlanetService planets,
-            IPlanetarySystemService planetarySystems, 
+            IPlanetarySystemService planetarySystems,
             IMemoryCache cache)
         {
             this.planets = planets;

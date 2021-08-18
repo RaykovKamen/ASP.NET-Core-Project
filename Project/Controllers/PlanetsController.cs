@@ -5,10 +5,11 @@ using Project.Infrastructure.Extensions;
 using Project.Models.Planets;
 using Project.Services.Creators;
 using Project.Services.Planets;
-using static Project.WebConstants;
 
 namespace Project.Controllers
 {
+    using static Project.WebConstants;
+
     public class PlanetsController : Controller
     {
 
@@ -205,7 +206,7 @@ namespace Project.Controllers
 
             this.planets.Delete(id);
             TempData[GlobalMessageKey] = $"Your planet was deleted!";
-            return this.Redirect("/Planets/All");
+            return this.Redirect("/Planets/Mine");
         }
     }
 }

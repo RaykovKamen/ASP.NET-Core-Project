@@ -28,7 +28,7 @@ namespace Project.Models.Planets
         [Display(Name = "Atmospheric Pressure")]
         public double? AtmosphericPressure { get; init; }
 
-        [Display(Name = "Surface Temperature if there is a surface")]
+        [Display(Name = "Surface Temperature (If there is a surface)")]
         public int? SurfaceTemperature { get; init; }
 
         [Required]

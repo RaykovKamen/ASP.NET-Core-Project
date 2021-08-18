@@ -5,10 +5,11 @@ using Project.Infrastructure.Extensions;
 using Project.Models.Moons;
 using Project.Services.Creators;
 using Project.Services.Moons;
-using static Project.WebConstants;
 
 namespace Project.Controllers
 {
+    using static Project.WebConstants;
+
     public class MoonsController : Controller
     {
         private readonly IMoonService moons;
@@ -17,7 +18,7 @@ namespace Project.Controllers
 
         public MoonsController(
             IMoonService moons,
-            ICreatorService creators, 
+            ICreatorService creators,
             IMapper mapper)
         {
             this.moons = moons;
@@ -164,17 +165,17 @@ namespace Project.Controllers
                 return BadRequest();
             }
 
-           var edited = this.moons.Edit(
-                id,
-                moon.Name,
-                (double)moon.OrbitalDistance,
-                (double)moon.OrbitalPeriod,
-                (int)moon.Radius,
-                (double)moon.AtmosphericPressure,
-                (int)moon.SurfaceTemperature,
-                moon.Analysis,
-                moon.ImageUrl,
-                moon.PlanetId);
+            var edited = this.moons.Edit(
+                 id,
+                 moon.Name,
+                 (double)moon.OrbitalDistance,
+                 (double)moon.OrbitalPeriod,
+                 (int)moon.Radius,
+                 (double)moon.AtmosphericPressure,
+                 (int)moon.SurfaceTemperature,
+                 moon.Analysis,
+                 moon.ImageUrl,
+                 moon.PlanetId);
 
             if (!edited)
             {
@@ -205,7 +206,7 @@ namespace Project.Controllers
 
             this.moons.Delete(id);
             TempData[GlobalMessageKey] = $"Your moon was deleted!";
-            return this.Redirect("/Planets/All");
+            return this.Redirect("/Planets/Mine");
         }
     }
 }
